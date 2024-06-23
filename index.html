@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="WailAI">
+    <meta name="theme-color" content="#edeff2">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#edeff2">
+    <meta name="msapplication-TileColor" content="#edeff2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileImage" content="icon.png">
+    <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png" sizes="512x512">
+    <title>WailAI</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts Link For Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined">
+    <script src="script.js" defer></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
+        }
+    </script>
+    <style>
+      /* Import Google font - Poppins */
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      :root {
+        --text-color: #FFFFFF;
+        --icon-color: #ACACBE;
+        --icon-hover-bg: #5b5e71;
+        --placeholder-color: #dcdcdc;
+        --outgoing-chat-bg: #343541;
+        --incoming-chat-bg: #444654;
+        --outgoing-chat-border: #343541;
+        --incoming-chat-border: #444654;
+      }
+      .light-mode {
+        --text-color: #343541;
+        --icon-color: #a9a9bc;
+        --icon-hover-bg: #f1f1f3;
+        --placeholder-color: #6c6c6c;
+        --outgoing-chat-bg: #FFFFFF;
+        --incoming-chat-bg: #F7F7F8;
+        --outgoing-chat-border: #FFFFFF;
+        --incoming-chat-border: #D9D9E3;
+      }
+      .typing-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 600px;
+      }
+      .typing-textarea {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        background: var(--outgoing-chat-bg);
+        border-radius: 20px;
+        padding: 10px;
+        margin-right: 10px;
+      }
+      .typing-textarea textarea {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--text-color);
+        resize: none;
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+      }
+      .typing-textarea textarea::placeholder {
+        color: var(--placeholder-color);
+      }
+      .typing-textarea .material-symbols-rounded {
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--icon-color);
+        transition: background-color 0.3s ease;
+        padding: 8px;
+      }
+      .typing-controls .material-symbols-rounded {
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--icon-color);
+        transition: background-color 0.3s ease;
+        padding: 8px;
+      }
+      .typing-controls .material-symbols-rounded:hover {
+        background-color: var(--icon-hover-bg);
+        border-radius: 50%;
+      }
+      .typing-container {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: var(--incoming-chat-bg);
+        border-top: 1px solid var(--incoming-chat-border);
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      body {
+        background: var(--outgoing-chat-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+header {
+    width: 100%;
+    padding: 20px 0;
+    background-color: var(--incoming-chat-bg);
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    border-bottom: 1px solid var(--incoming-chat-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+	padding: 0 10px;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin: 0;
+    padding: auto;
+    text-align: center;
+}
+      header .icons-container {
+        display: flex;
+        align-items: center;
+      }
+      header .theme-switch {
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--icon-color);
+        transition: background-color 0.3s ease;
+        padding: 8px;
+      }
+      header .theme-switch:hover {
+        background-color: var(--icon-hover-bg);
+        border-radius: 50%;
+      }
+      .chat-container {
+        margin-top: 80px; /* Adjust margin top to accommodate header */
+        overflow-y: auto;
+        max-height: calc(100vh - 80px); /* Adjust max height to fit remaining space */
+        padding-bottom: 150px;
+        width: 100%;
+      }
+      .default-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        color: var(--text-color);
+      }
+      .default-text .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+      .default-text .card {
+        background: var(--incoming-chat-bg);
+        padding: 15px;
+        margin: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        flex: 1;
+        min-width: 250px;
+        max-width: 300px;
+        text-align: center;
+      }
+      .default-text .card h2 {
+        margin-bottom: 10px;
+      }
+      .default-text .card .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center; /* Center align content vertically */
+        text-align: center; /* Center align content horizontally */
+      }
+      .default-text .card .card-content p {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+        justify-content: center; /* Center align paragraph content */
+      }
+      .default-text .card .card-content .material-symbols-rounded {
+        margin-right: 5px;
+        font-size: 1.2rem;
+        vertical-align: middle; /* Align icon vertically */
+      }
+      .web-icon {
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--icon-color);
+        transition: background-color 0.3s ease;
+        padding: 8px;
+      }
+      .web-icon:hover {
+        background-color: var(--icon-hover-bg);
+        border-radius: 60%;
+      }
+      .user-message, .ai-message {
+        background: var(--incoming-chat-bg);
+        color: var(--text-color);
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px;
+        max-width: 80%;
+        word-wrap: break-word;
+      }
+      .user-message {
+        align-self: flex-end;
+        background: var(--outgoing-chat-bg);
+      }
+      .chat-container {
+        margin-top: 80px; /* Adjust margin top to accommodate header */
+        overflow-y: auto;
+        max-height: calc(100vh - 80px); /* Adjust max height to fit remaining space */
+        padding-bottom: 150px;
+        width: 100%;
+      }
+      .p {
+        align: center;
+      }
+	  
+	  /* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --text-color: #FFFFFF;
+  --icon-color: #ACACBE;
+  --icon-hover-bg: #5b5e71;
+  --placeholder-color: #dcdcdc;
+  --outgoing-chat-bg: #343541;
+  --incoming-chat-bg: #444654;
+  --outgoing-chat-border: #343541;
+  --incoming-chat-border: #444654;
+}
+
+[data-theme="dark"] {
+  --text-color: #343541;
+  --icon-color: #a9a9bc;
+  --icon-hover-bg: #f1f1f3;
+  --placeholder-color: #6c6c6c;
+  --outgoing-chat-bg: #FFFFFF;
+  --incoming-chat-bg: #F7F7F8;
+  --outgoing-chat-border: #FFFFFF;
+  --incoming-chat-border: #D9D9E3;
+}
+
+body {
+  background: var(--outgoing-chat-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+
+header .theme-switch {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--icon-color);
+  transition: background-color 0.3s ease;
+  padding: 8px;
+  align-items: center; 
+}
+
+header .theme-switch:hover {
+  background-color: var(--icon-hover-bg);
+  border-radius: 50%;
+  align-items: center; 
+}
+
+.chat-container {
+  margin-top: 80px; /* Adjust margin top to accommodate header */
+  overflow-y: auto;
+  padding-bottom: 100px;
+  width: 100%;
+}
+
+.default-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: var(--text-color);
+}
+
+.default-text .card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.chat-container .chat {
+  padding: 25px 10px;
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+}
+.chat-container .chat.outgoing {
+  background: var(--outgoing-chat-bg);
+  border: 1px solid var(--outgoing-chat-border);
+}
+.chat-container .chat.incoming {
+  background: var(--incoming-chat-bg);
+  border: 1px solid var(--incoming-chat-border);
+}
+.chat .chat-content {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+span.material-symbols-rounded {
+  user-select: none;
+  cursor: pointer;
+}
+.chat .chat-content span {
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: var(--icon-color);
+  visibility: hidden;
+}
+.chat:hover .chat-content:not(:has(.typing-animation), :has(.error)) span {
+  visibility: visible;
+}
+.chat .chat-details {
+  display: flex;
+  align-items: center;
+}
+.chat .chat-details img {
+  width: 35px;
+  height: 35px;
+  align-self: flex-start;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.chat .chat-details p {
+  white-space: pre-wrap;
+  font-size: 1.05rem;
+  padding: 0 50px 0 25px;
+  color: var(--text-color);
+  word-break: break-word;
+}
+.chat .chat-details p.error {
+  color: #e55865;
+}
+.chat .typing-animation {
+  padding-left: 25px;
+  display: inline-flex;
+}
+.typing-animation .typing-dot {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  margin: 0 3px;
+  opacity: 0.7;
+  background: var(--text-color);
+  animation: animateDots 1.5s var(--delay) ease-in-out infinite;
+}
+.typing-animation .typing-dot:first-child {
+  margin-left: 0;
+}
+@keyframes animateDots {
+  0%,44% {
+    transform: translateY(0px);
+  }
+  28% {
+    opacity: 0.4;
+    transform: translateY(-6px);
+  }
+  44% {
+    opacity: 0.2;
+  }
+}
+.default-text .card {
+  background: var(--incoming-chat-bg);
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  text-align: center;
+}
+
+.default-text .card h2 {
+  margin-bottom: 10px;
+}
+
+.default-text .card .card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center; /* Center align content vertically */
+  text-align: center; /* Center align content horizontally */
+}
+
+.default-text .card .card-content p {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  justify-content: center; /* Center align paragraph content */
+}
+
+.default-text .card .card-content .material-symbols-rounded {
+  margin-right: 5px;
+  font-size: 1.2rem;
+  vertical-align: middle; /* Align icon vertically */
+}
+
+.web-icon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--icon-color);
+  transition: background-color 0.3s ease;
+  padding: 8px;
+  align-items: center;
+}
+
+.web-icon:hover {
+  background-color: var(--icon-hover-bg);
+  border-radius: 50%;
+  align-items: center; 
+}
+.default-text .card .card-content .material-symbols-rounded.edit {
+  color: #007BFF; /* أزرق للأيقونة edit */
+}
+
+.default-text .card .card-content .material-symbols-rounded.lightbulb {
+  color: #FFC107; /* أصفر للأيقونة lightbulb */
+}
+
+.default-text .card .card-content .material-symbols-rounded.event {
+  color: #28A745; /* أخضر للأيقونة event */
+}
+
+.default-text .card .card-content .material-symbols-rounded.info {
+  color: #DC3545; /* أحمر للأيقونة info */
+}
+
+    </style>
+</head>
+<body>
+<header>
+  <div class="logo-container">
+  </div>
+  <div class="icons-container">
+    <h1 align="center">WailAI</h1>
+    <div class="web-icon material-icons-outlined">help_outline</div>
+    <div class="theme-switch material-symbols-rounded" id="theme-btn">light_mode</div>
+  </div>
+</header>
+
+<!-- Chat container -->
+<div class="chat-container">
+  <!-- Default text -->
+  <div class="default-text">
+    <h1>WailAI</h1>
+    <div class="card-container">
+      <div class="card">
+        <div class="card-content">
+          <span class="material-symbols-rounded edit">edit</span>
+          <p>Write a message</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="material-symbols-rounded lightbulb">lightbulb</span>
+          <p>Design a game</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="material-symbols-rounded event">event</span>
+          <p>Plan a day</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="material-symbols-rounded info">info</span>
+          <p>Historical fact</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Typing container -->
+<div class="typing-container">
+  <div class="typing-content">
+    <div class="typing-textarea">
+      <textarea id="chat-input" spellcheck="false" placeholder="Enter text here" required></textarea>
+      <span id="send-btn" class="material-symbols-rounded">send</span>
+    </div>
+    <div class="typing-controls">
+      <span id="delete-btn" class="material-symbols-rounded">delete</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
