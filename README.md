@@ -1,6 +1,6 @@
 <!-- Project Logo -->
 <p align="center">
-  <img src="https://your-domain.com/path/to/logo.png" alt="WailAI Logo" width="200" />
+  <img src="icon.png" alt="WailAI Logo" width="200" />
 </p>
 
 <!-- Project Title -->
