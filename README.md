@@ -40,9 +40,8 @@ To run WailAI locally, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone [https://github.com/wailtech/wailai.git](https://github.com/WailApp/wailai.git)
-   cd wailai
-   npm install
+   git clone https://github.com/WailApp/wailai.git
+   cd WailApp
  2.  **Usage:**
 Once installed, interact with WailAI through a web browser or integrate it into your applications for AI-based functionalities.
 
