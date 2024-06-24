@@ -23,20 +23,19 @@
 ---
 
 ## مقدمة
+موقع "WailAI" هو منصة تفاعلية تعتمد على الذكاء الاصطناعي لتوفير خدمات متقدمة في المحادثة والتفاعل. يتميز الموقع بتصميمه الحديث والبسيط الذي يسهل على المستخدم التفاعل معه بسلاسة عبر أي جهاز.
 
+## مميزات
 
-## Features
+- **كتابة مقال من ويكيبيديا**: و ذلك بمجرد قول "اكتب مقال عن (اسم مقال)".
+- **رد السريع**: لداعي لانتضار فهناك WailAI السريع.
+- **بحث من انترنت (هذه ميزة قيد انجاز)**: فهو مبني على جوجل (Google) يمكنك من بحث اي شيء بكل سهولة.
+- **ميزات العادية**:مثل الحساب ,ماهو اليوم ....
+## تثبيت في الجهاز
 
-- **Natural Language Processing**: Enable human-like interactions with advanced language understanding.
-- **Dynamic Responses**: Integrate with external data sources to deliver real-time context-specific responses.
-- **Scalable Architecture**: Support plugins for custom functionalities and third-party service integrations.
-- **Real-time Chat Interface**: Provide a user-friendly interface for consistent interaction with artificial intelligence.
+لتثبيت WailAI يجب:
 
-## Installation
-
-To run WailAI locally, follow these steps:
-
-1. **Clone the repository:**
+1. **في Linux أو termux android:**
 
    ```bash
    git clone https://github.com/WailApp/wailai.git
