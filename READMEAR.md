@@ -41,7 +41,7 @@ WailAI هي منصة ذكاء اصطناعي متقدمة تم تطويرها ب
 
    ```bash
    git clone https://github.com/WailApp/wailai.git
-   cd WailApp
+   cd wailai
 الاستخدام:
 بمجرد التثبيت، يمكنك التفاعل مع WailAI من خلال متصفح الويب أو دمجه في تطبيقاتك للوظائف القائمة على الذكاء الاصطناعي.
 
