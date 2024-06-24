@@ -8,23 +8,23 @@
 
 <!-- Project Description -->
 <p align="center">
-  <strong>Advanced AI platform powered by WailJSCode</strong>
+  <strong>المساعد أفضل الذي يعمل ب WailJSCode</strong>
 </p>
 
 <!-- Table of Contents -->
 <p align="center">
-  <a href="#overview">Overview</a> •
-  <a href="#features">Features</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#usage">Usage</a> •
-  <a href="#contact">Contact</a>
+  <a href="#overview">مقدمة</a> •
+  <a href="#features">مميزات</a> •
+  <a href="#installation">تثبيت في جهاز</a> •
+  <a href="#usage">دليل استعمال</a> •
+  <a href="#contact">تواصل</a>
 </p>
 
 ---
 
-## Overview
+## مقدمة
 
-WailAI is an advanced artificial intelligence platform developed with JavaScript, designed for natural language processing and intelligent interactions. It provides a robust framework for creating interactive AI applications capable of understanding and responding to human language in real-time.
+WailAI هي تكنولوجيا جديدة لذكاء الصناعي الذي يعمل ب WailJSCode يتحل لك سهولة استعمال وكسب الوقت, تم انشاءه في 2024.02.26
 
 ## Features
 
