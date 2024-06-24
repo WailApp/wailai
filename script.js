@@ -3,248 +3,205 @@ let sendButton = null;
 let chatContainer = null;
 let themeButton = null;
 let deleteButton = null;
-const weatherApiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your OpenWeatherMap API key
 
-// Default responses in English and Arabic
 const defaultResponses = {
-    en: [
-        "Hello!",
-        "I'm doing well, thank you.",
-        "I'm WailAI, an AI chatbot programmed to assist you.",
-        "Today is a great day!",
-        "I can perform basic calculations and translations.",
-        "I'm sorry, I don't have a response for that right now."
+    greetings: [
+        "مرحبًا! كيف يمكنني مساعدتك اليوم؟",
+        "أهلاً! كيف يمكنني أن أكون مفيداً لك؟",
+        "مرحبًا بك! هل هناك شيء يمكنني مساعدتك فيه؟",
+        "مرحبًا، كيف يمكنني أن أساعدك اليوم؟",
+        "أهلاً، هل تحتاج إلى مساعدة في شيء معين؟"
     ],
-    ar: [
-        "مرحبًا!",
+    gratitude: [
         "أنا بخير، شكرًا.",
-        "أنا WailAI، روبوت دردشة مبرمج لمساعدتك.",
-        "اليوم يوم رائع!",
+        "شكرًا، أنا بخير.",
+        "أشكرك على الاهتمام، أنا بخير.",
+        "شكرًا للسؤال، أنا بحالة جيدة."
+    ],
+    botIdentity: [
+        "أنا WailAI، روبوت الدردشة الذكي.",
+        "أنا هنا لمساعدتك، أنا WailAI.",
+        "أنا الذكاء الاصطناعي WailAI.",
+        "أنا هنا كروبوت للدردشة، أنا WailAI."
+    ],
+    general: [
         "أستطيع القيام بحسابات أساسية وترجمات.",
-        "آسف، ليس لدي إجابة على ذلك السؤال حاليًا."
+        "يمكنني مساعدتك في إجراء حسابات بسيطة والبحث على الويب.",
+        "أنا هنا لتوفير المعلومات والمساعدة فيما تحتاج إليه."
+    ],
+    apology: [
+        "آسف، ليس لدي إجابة على ذلك السؤال حاليًا.",
+        "عذرًا، لم أتمكن من مساعدتك في هذا الوقت.",
+        "عذرًا، لم أفهم سؤالك تمامًا.",
+        "أنا آسف، يبدو أنني لست متأكدًا كيف يمكنني مساعدتك بهذا."
     ]
 };
 
-// Object to store reminders and important information
-const reminders = {
-    "موعد الاجتماع القادم": "يوم الخميس الساعة 10 صباحًا",
-    "مهمة الأسبوع القادم": "إعداد تقرير التقييم الشهري"
-};
-
-// Load data from local storage
 const loadDataFromLocalStorage = () => {
     let themeColor = localStorage.getItem("themeColor");
 
     document.body.classList.toggle("light-mode", themeColor === "light_mode");
     themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
 
-    let defaultText = `<div class="default-text">
-                        <h1>WailAI Beta 2.0.0</h1>
-                        <p>Start a conversation and explore the power of WailJSCode.<br> Your chat history will be displayed here.</p>
-                    </div>`;
+    let defaultText = `
+        <div class="default-text">
+            <h1>WailAI 2.0</h1>
+            <p class="p">WailAI بحلة جديد و بقدرات فائقة. <br> سيتم عرض تاريخ محادثتك هنا.</p>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="material-symbols-rounded edit">edit</span>
+                        <p>كتابة مقال بواسطة ويكيبيديا</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <span class="material-symbols-rounded lightbulb">lightbulb</span>
+                        <p>حصول على مميزاتي</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <span class="material-symbols-rounded event">event</span>
+                        <p>ماهو اليوم</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <span class="material-symbols-rounded info">info</span>
+                        <p>من أنا ؟</p>
+                    </div>
+                </div>
+            </div>
+        </div>`;
 
     chatContainer.innerHTML = localStorage.getItem("all-chats") || defaultText;
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
-};
+}
 
-// Create chat element
 const createChatElement = (content, className) => {
     let chatDiv = document.createElement("div");
     chatDiv.classList.add("chat", className);
     chatDiv.innerHTML = content;
     return chatDiv;
+}
+
+const getRandomResponse = (category) => {
+    let responses = defaultResponses[category] || [];
+    let randomIndex = Math.floor(Math.random() * responses.length);
+    return responses[randomIndex];
+}
+
+const translateText = async (text, targetLanguage) => {
+    return text; // Dummy implementation for Arabic only
 };
 
-// Function to detect language (simple version based on characters)
-const detectLanguage = (text) => {
-    let arabicPattern = /[\u0600-\u06FF]/;
-    return arabicPattern.test(text) ? 'ar' : 'en';
+const getWeather = async (city) => {
+    return `الطقس في ${city}: مشمس، 25°C`; // Dummy implementation for Arabic only
 };
 
-// Function to get a random response based on language and category
-const getRandomResponse = (language, category) => {
-    let responses = defaultResponses[language] || defaultResponses['en'];
-    switch (category) {
-        case 'howAreYou':
-            return responses[1]; // Return "I'm doing well, thank you."
-        case 'date':
-            let today = new Date();
-            let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            return language === 'ar' 
-                ? `اليوم هو ${today.toLocaleDateString('ar-EG', options)}.`
-                : `Today is ${today.toLocaleDateString('en-US', options)}.`;
-        case 'location':
-            return responses[4]; // Return "I'm sorry, I don't have a response for that right now."
-        case 'joke':
-            return language === 'ar'
-                ? "لماذا لا يثق العلماء في الذرات؟ لأنها تُكوِّن كل شيء!"
-                : "Why don't scientists trust atoms? Because they make up everything!";
-        default:
-            return responses[0]; // Return "Hello!"
+const getNews = async () => {
+    return "أحدث الأخبار: تقدم التكنولوجيا في الذكاء الاصطناعي"; // Dummy implementation for Arabic only
+};
+
+const getWikipediaArticle = async (topic) => {
+    try {
+        let response = await fetch(`https://ar.wikipedia.org/api/rest_v1/page/summary/${topic}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        let data = await response.json();
+        return data.extract;
+    } catch (error) {
+        console.error('Error fetching Wikipedia article:', error);
+        return 'عذرًا، لم أتمكن من العثور على معلومات حول هذا الموضوع.';
     }
 };
 
-// Function to handle reminders
-const handleReminders = (userText) => {
-    let language = detectLanguage(userText);
-    let reminderKeys = Object.keys(reminders);
+const searchOnWeb = async (query) => {
+    try {
+        let response = await fetch(`https://www.google.com/search?q=${encodeURIComponent(query)}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Accept': 'text/html',
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        let data = await response.text();
+        let parser = new DOMParser();
+        let doc = parser.parseFromString(data, 'text/html');
+        let searchResults = doc.querySelectorAll('.tF2Cxc');
+        if (searchResults.length > 0) {
+            let searchResultText = Array.from(searchResults).map(result => result.textContent.trim()).join('\n');
+            return `تم العثور على نتائج للبحث "${query}":\n${searchResultText}`;
+        } else {
+            return `لم يتم العثور على نتائج للبحث "${query}".`;
+        }
+    } catch (error) {
+        console.error('Error fetching web search results:', error);
+        return 'عذرًا، حدث خطأ أثناء محاولة البحث على الويب.';
+    }
+};
 
-    for (let key of reminderKeys) {
-        if (userText.toLowerCase().includes(key)) {
-            return reminders[key];
+const generalKeywords = ['عام', 'عامة', 'general', 'context', 'سياق'];
+const jokeKeywords = ['نكتة', 'نكته', 'joke', 'jokes'];
+const weatherKeywords = ['طقس في'];
+
+const getChatResponse = async (userText) => {
+    if (userText.toLowerCase().includes('كيف حالك')) {
+        return getRandomResponse('greetings');
+    } else if (userText.toLowerCase().includes('ما هو اليوم')) {
+        return getRandomResponse('greetings');
+    } else if (userText.toLowerCase().includes('أين أنا')) {
+        return getRandomResponse('greetings');
+    } else if (userText.toLowerCase().includes('حساب')) {
+        let expression = userText.replace(/حساب|calculate/gi, '').trim();
+        try {
+            let result = eval(expression);
+            return `نتيجة ${expression} هي ${result}`;
+        } catch (error) {
+            return "تعبير غير صالح. يرجى التحقق من إدخالك.";
+        }
+    } else if (userText.toLowerCase().includes('أخبار')) {
+        return getNews();
+    } else if (userText.toLowerCase().includes('اكتب مقال عن')) {
+        let topic = userText.replace(/اكتب مقال عن/gi, '').trim();
+        return getWikipediaArticle(topic);
+    } else {
+        if (checkForKeyword(userText, jokeKeywords)) {
+            return getRandomResponse('greetings');
+        } else if (checkForKeyword(userText, weatherKeywords)) {
+            let city = extractCity(userText, weatherKeywords);
+            return getWeather(city);
+        } else {
+            let foundGeneralKeyword = generalKeywords.find(keyword => userText.toLowerCase().includes(keyword));
+            if (foundGeneralKeyword) {
+                return "أفهم أنك ترغب في تحليل السياق العام لجملتك.";
+            } else {
+                return getRandomResponse('greetings');
+            }
         }
     }
+}
 
-    return getRandomResponse(language, 'default');
-};
+const checkForKeyword = (text, keywords) => {
+    return keywords.some(keyword => text.toLowerCase().includes(keyword));
+}
 
-// Function to handle communication tips
-const handleCommunicationTips = (userText) => {
-    let language = detectLanguage(userText);
-
-    if (userText.toLowerCase().includes('كيف أحسن التواصل')) {
-        return language === 'ar'
-            ? "حاول أن تكون واضحًا وصريحًا في التعبير عن أفكارك واستمع بعناية للآخرين."
-            : "Try to be clear and explicit in expressing your ideas and actively listen to others.";
-    }
-
-    return getRandomResponse(language, 'default');
-};
-
-// Function to get current location information
-const getCurrentLocationInfo = async () => {
-    return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(position => {
-            let lat = position.coords.latitude;
-            let lon = position.coords.longitude;
-            let endpoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=metric`;
-
-            fetch(endpoint)
-                .then(response => response.json())
-                .then(data => {
-                    let location = data.name;
-                    let description = data.weather[0].description;
-                    let temp = data.main.temp;
-                    let info = language === 'ar' 
-                        ? `الموقع الحالي: ${location}. الطقس: ${description} مع درجة حرارة ${temp}°C.`
-                        : `Current location: ${location}. Weather: ${description} with temperature ${temp}°C.`;
-                    resolve(info);
-                })
-                .catch(error => reject("Unable to retrieve location information."));
-        }, error => reject("Location access denied."));
+const extractCity = (text, keywords) => {
+    let city = '';
+    keywords.forEach(keyword => {
+        if (text.toLowerCase().includes(keyword)) {
+            city = text.replace(new RegExp(`^.*${keyword}\\s*`), '').trim();
+        }
     });
-};
+    return city;
+}
 
-// Function to play music and display latest news
-const handleMusicAndNews = (userText) => {
-    let language = detectLanguage(userText);
-
-    if (userText.toLowerCase().includes('play music')) {
-        // Code to play music
-        return language === 'ar'
-            ? "يتم الآن تشغيل الموسيقى."
-            : "Music is now playing.";
-    } else if (userText.toLowerCase().includes('latest news')) {
-        // Code to fetch latest news
-        return language === 'ar'
-            ? "هذا آخر الأخبار."
-            : "Here are the latest news.";
-    }
-
-    return getRandomResponse(language, 'default');
-};
-
-// Function to provide entertainment services
-const handleEntertainment = (userText) => {
-    let language = detectLanguage(userText);
-
-    if (userText.toLowerCase().includes('tell me a joke')) {
-        return language === 'ar'
-            ? "لماذا لا يثق العلماء في الذرات؟ لأنها تُكوِّن كل شيء!"
-            : "Why don't scientists trust atoms? Because they make up everything!";
-    } else if (userText.toLowerCase().includes('play game')) {
-        return language === 'ar'
-            ? "هل تحب لعب الألعاب؟ جرب أن تحدثني!"
-            : "Do you like playing games? Let's try a word game!";
-    }
-
-    return getRandomResponse(language, 'default');
-};
-
-// Function to get chatbot response asynchronously
-const getChatResponse = async (userText) => {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            let language = detectLanguage(userText); // Assuming you have a function to detect language
-
-            if (userText.toLowerCase().includes('كيف حالك') || userText.toLowerCase().includes('how are you')) {
-                resolve(getRandomResponse(language, 'howAreYou'));
-            } else if (userText.toLowerCase().includes('ما هو اليوم') || userText.toLowerCase().includes('what is today')) {
-                resolve(getRandomResponse(language, 'date'));
-            } else if (userText.toLowerCase().includes('أين أنا') || userText.toLowerCase().includes('where am i')) {
-                getCurrentLocationInfo().then(info => {
-                    resolve(info);
-                }).catch(error => {
-                    resolve("Unable to retrieve location information.");
-                });
-            } else if (userText.toLowerCase().includes('حساب') || userText.toLowerCase().includes('calculate')) {
-                let expression = userText.replace(/حساب|calculate/gi, '').trim();
-                try {
-                    let result = eval(expression);
-                    resolve(`The result of ${expression} is ${result}`);
-                } catch (error) {
-                    resolve("Invalid expression. Please check your input.");
-                }
-            } else if (userText.toLowerCase().includes('اقول لك نكتة') || userText.toLowerCase().includes('tell me a joke')) {
-                resolve(handleEntertainment(userText));
-            } else if (userText.toLowerCase().includes('طقس في') || userText.toLowerCase().includes('weather in')) {
-                let location = userText.replace(/طقس في|weather in/gi, '').trim();
-                getWeather(location, language).then(weatherInfo => {
-                    resolve(weatherInfo);
-                }).catch(error => {
-                    resolve("Weather information could not be retrieved. Please try again.");
-                });
-            } else if (userText.toLowerCase().includes('تذكير') || userText.toLowerCase().includes('reminder')) {
-                resolve(handleReminders(userText));
-            } else if (userText.toLowerCase().includes('نصيحة تواصل') || userText.toLowerCase().includes('communication tip')) {
-                resolve(handleCommunicationTips(userText));
-            } else if (userText.toLowerCase().includes('موسيقى') || userText.toLowerCase().includes('news')) {
-                resolve(handleMusicAndNews(userText));
-            } else {
-                // For any other question, return a random default response
-                resolve(getRandomResponse(language, 'default'));
-            }
-        }, 1000); // Simulate a delay of 1 second for bot typing effect
-    });
-};
-
-// Function to get weather information
-const getWeather = async (location, language) => {
-    let endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${weatherApiKey}&units=metric`;
-
-    return fetch(endpoint)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            let description = data.weather[0].description;
-            let temp = data.main.temp;
-            return language === 'ar' 
-                ? `الطقس في ${location}: ${description} مع درجة حرارة ${temp}°C.`
-                : `The weather in ${location}: ${description} with a temperature of ${temp}°C.`;
-        })
-        .catch(error => {
-            return language === 'ar' 
-                ? 'تعذر الحصول على معلومات الطقس. حاول مرة أخرى.'
-                : 'Weather information could not be retrieved. Please try again.';
-        });
-};
-
-// Function to handle outgoing chat messages
-const handleOutgoingChat = async () => {
+const handleOutgoingChat = () => {
     let userText = chatInput.value.trim();
     if (!userText) return;
 
@@ -262,52 +219,50 @@ const handleOutgoingChat = async () => {
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
     localStorage.setItem("all-chats", chatContainer.innerHTML);
 
-    let incomingChatDiv = createChatElement(`<div class="chat-content">
-                                                <div class="chat-details">
-                                                    <img src="images/chatbot.png" alt="chatbot-img">
-                                                    <div class="typing-animation">
-                                                        <div class="typing-dot" style="--delay: 0.2s"></div>
-                                                        <div class="typing-dot" style="--delay: 0.3s"></div>
-                                                        <div class="typing-dot" style="--delay: 0.4s"></div>
+    setTimeout(async () => {
+        let incomingChatDiv = createChatElement(`<div class="chat-content">
+                                                    <div class="chat-details">
+                                                        <img src="images/chatbot.png" alt="chatbot-img">
+                                                        <div class="typing-animation">
+                                                            <div class="typing-dot" style="--delay: 0.2s"></div>
+                                                            <div class="typing-dot" style="--delay: 0.3s"></div>
+                                                            <div class="typing-dot" style="--delay: 0.4s"></div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>`, "incoming");
+                                                </div>`, "incoming");
 
-    chatContainer.appendChild(incomingChatDiv);
-    chatContainer.scrollTo(0, chatContainer.scrollHeight);
+        chatContainer.appendChild(incomingChatDiv);
+        chatContainer.scrollTo(0, chatContainer.scrollHeight);
 
-    let botResponse = await getChatResponse(userText);
+        let botResponse = await getChatResponse(userText);
 
-    let pElement = document.createElement("p");
-    pElement.textContent = botResponse;
+        let pElement = document.createElement("p");
+        pElement.textContent = botResponse;
 
-    incomingChatDiv.querySelector(".typing-animation").remove();
-    incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
-    localStorage.setItem("all-chats", chatContainer.innerHTML);
-    chatContainer.scrollTo(0, chatContainer.scrollHeight);
-};
+        incomingChatDiv.querySelector(".typing-animation").remove();
+        incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
+        localStorage.setItem("all-chats", chatContainer.innerHTML);
+        chatContainer.scrollTo(0, chatContainer.scrollHeight);
+    }, 1000); // Simulate a delay of 1 second for bot typing effect
+}
 
-// Function to toggle theme
 const handleThemeToggle = () => {
     document.body.classList.toggle("light-mode");
     localStorage.setItem("themeColor", themeButton.innerText);
     themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
-};
+}
 
-// Function to handle deletion of chats
 const handleDeleteChats = () => {
-    if (confirm("Are you sure you want to delete all chats?")) {
+    if (confirm("هل أنت متأكد أنك تريد حذف كل المحادثات؟")) {
         localStorage.removeItem("all-chats");
         loadDataFromLocalStorage();
     }
-};
+}
 
-// Function to adjust input height
 const adjustInputHeight = () => {
     chatInput.style.height = "50px";
-};
+}
 
-// Event listener for DOM content loaded
 document.addEventListener("DOMContentLoaded", () => {
     chatInput = document.querySelector("#chat-input");
     sendButton = document.querySelector("#send-btn");
@@ -328,3 +283,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     chatInput.addEventListener("input", adjustInputHeight);
 });
+
+const detectLanguage = (text) => {
+    let arabicPattern = /[\u0600-\u06FF]/;
+    return arabicPattern.test(text) ? 'ar' : 'en';
+}

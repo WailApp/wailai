@@ -475,6 +475,9 @@ span.material-symbols-rounded {
 .default-text .card .card-content .material-symbols-rounded.info {
   color: #DC3545; /* أحمر للأيقونة info */
 }
+.send-btn {
+color :#007BFF;
+}
 
     </style>
 </head>
@@ -482,8 +485,9 @@ span.material-symbols-rounded {
 <header>
   <div class="logo-container">
   </div>
-  <div class="icons-container">
-    <h1 align="center">WailAI</h1>
+    <div class="logo-container">
+    <h1>WailAI</h1>
+  </div>
     <div class="theme-switch material-symbols-rounded" id="theme-btn">light_mode</div>
   </div>
 </header>
@@ -497,25 +501,25 @@ span.material-symbols-rounded {
       <div class="card">
         <div class="card-content">
           <span class="material-symbols-rounded edit">edit</span>
-          <p>Write a message</p>
+          <p>كتابة مقال بواسطة ويكيبيديا</p>
         </div>
       </div>
       <div class="card">
         <div class="card-content">
           <span class="material-symbols-rounded lightbulb">lightbulb</span>
-          <p>Design a game</p>
+          <p>حصول على مميزاتي</p>
         </div>
       </div>
       <div class="card">
         <div class="card-content">
           <span class="material-symbols-rounded event">event</span>
-          <p>Plan a day</p>
+          <p>ماهو اليوم</p>
         </div>
       </div>
       <div class="card">
         <div class="card-content">
           <span class="material-symbols-rounded info">info</span>
-          <p>Historical fact</p>
+          <p>من أنا ؟</p>
         </div>
       </div>
     </div>
@@ -526,11 +530,12 @@ span.material-symbols-rounded {
 <div class="typing-container">
   <div class="typing-content">
     <div class="typing-textarea">
-      <textarea id="chat-input" spellcheck="false" placeholder="Enter text here" required></textarea>
+      <textarea id="chat-input" spellcheck="false" placeholder="يمكنك طرح سؤال هنا ..." required></textarea>
       <span id="send-btn" class="material-symbols-rounded">send</span>
     </div>
     <div class="typing-controls">
       <span id="delete-btn" class="material-symbols-rounded">delete</span>
+	 <a href="READMEAR.md" id="idea" class="material-symbols-rounded lightbulb">lightbulb</a>
     </div>
   </div>
 </div>
