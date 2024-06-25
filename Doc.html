@@ -15,8 +15,6 @@
     <link rel="apple-touch-icon" href="icon.png" sizes="512x512">
     <title>WailAI</title>
     <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts Link For Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined">
     <script src="script.js" defer></script>
@@ -28,514 +26,313 @@
         }
     </script>
     <style>
-      /* Import Google font - Poppins */
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
-      }
-      :root {
-        --text-color: #FFFFFF;
-        --icon-color: #ACACBE;
-        --icon-hover-bg: #5b5e71;
-        --placeholder-color: #dcdcdc;
-        --outgoing-chat-bg: #343541;
-        --incoming-chat-bg: #444654;
-        --outgoing-chat-border: #343541;
-        --incoming-chat-border: #444654;
-      }
-      .light-mode {
-        --text-color: #343541;
-        --icon-color: #a9a9bc;
-        --icon-hover-bg: #f1f1f3;
-        --placeholder-color: #6c6c6c;
-        --outgoing-chat-bg: #FFFFFF;
-        --incoming-chat-bg: #F7F7F8;
-        --outgoing-chat-border: #FFFFFF;
-        --incoming-chat-border: #D9D9E3;
-      }
-      .typing-content {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        max-width: 600px;
-      }
-      .typing-textarea {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        background: var(--outgoing-chat-bg);
-        border-radius: 20px;
-        padding: 10px;
-        margin-right: 10px;
-      }
-      .typing-textarea textarea {
-        flex: 1;
-        background: transparent;
-        border: none;
-        outline: none;
-        color: var(--text-color);
-        resize: none;
-        font-family: "Poppins", sans-serif;
-        font-size: 1rem;
-      }
-      .typing-textarea textarea::placeholder {
-        color: var(--placeholder-color);
-      }
-      .typing-textarea .material-symbols-rounded {
-        cursor: pointer;
-        font-size: 1.5rem;
-        color: var(--icon-color);
-        transition: background-color 0.3s ease;
-        padding: 8px;
-      }
-      .typing-controls .material-symbols-rounded {
-        cursor: pointer;
-        font-size: 1.5rem;
-        color: var(--icon-color);
-        transition: background-color 0.3s ease;
-        padding: 8px;
-      }
-      .typing-controls .material-symbols-rounded:hover {
-        background-color: var(--icon-hover-bg);
-        border-radius: 50%;
-      }
-      .typing-container {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background: var(--incoming-chat-bg);
-        border-top: 1px solid var(--incoming-chat-border);
-        padding: 10px 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      body {
-        background: var(--outgoing-chat-bg);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-      }
-header {
-    width: 100%;
-    padding: 20px 0;
-    background-color: var(--incoming-chat-bg);
-    text-align: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2000;
-    border-bottom: 1px solid var(--incoming-chat-border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-	padding: 0 10px;
-}
-
-header h1 {
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin: 0;
-    padding: auto;
-    text-align: center;
-}
-      header .icons-container {
-        display: flex;
-        align-items: center;
-      }
-      header .theme-switch {
-        cursor: pointer;
-        font-size: 1.5rem;
-        color: var(--icon-color);
-        transition: background-color 0.3s ease;
-        padding: 8px;
-      }
-      header .theme-switch:hover {
-        background-color: var(--icon-hover-bg);
-        border-radius: 50%;
-      }
-      .chat-container {
-        margin-top: 80px; /* Adjust margin top to accommodate header */
-        overflow-y: auto;
-        max-height: calc(100vh - 80px); /* Adjust max height to fit remaining space */
-        padding-bottom: 150px;
-        width: 100%;
-      }
-      .default-text {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        color: var(--text-color);
-      }
-      .default-text .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-      }
-      .default-text .card {
-        background: var(--incoming-chat-bg);
-        padding: 15px;
-        margin: 10px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        flex: 1;
-        min-width: 250px;
-        max-width: 300px;
-        text-align: center;
-      }
-      .default-text .card h2 {
-        margin-bottom: 10px;
-      }
-      .default-text .card .card-content {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        align-items: center; /* Center align content vertically */
-        text-align: center; /* Center align content horizontally */
-      }
-      .default-text .card .card-content p {
-        display: flex;
-        align-items: center;
-        font-size: 0.9rem;
-        justify-content: center; /* Center align paragraph content */
-      }
-      .default-text .card .card-content .material-symbols-rounded {
-        margin-right: 5px;
-        font-size: 1.2rem;
-        vertical-align: middle; /* Align icon vertically */
-      }
-      .web-icon {
-        cursor: pointer;
-        font-size: 1.5rem;
-        color: var(--icon-color);
-        transition: background-color 0.3s ease;
-        padding: 8px;
-      }
-      .web-icon:hover {
-        background-color: var(--icon-hover-bg);
-        border-radius: 60%;
-      }
-      .user-message, .ai-message {
-        background: var(--incoming-chat-bg);
-        color: var(--text-color);
-        border-radius: 10px;
-        padding: 10px;
-        margin: 10px;
-        max-width: 80%;
-        word-wrap: break-word;
-      }
-      .user-message {
-        align-self: flex-end;
-        background: var(--outgoing-chat-bg);
-      }
-      .chat-container {
-        margin-top: 80px; /* Adjust margin top to accommodate header */
-        overflow-y: auto;
-        max-height: calc(100vh - 80px); /* Adjust max height to fit remaining space */
-        padding-bottom: 150px;
-        width: 100%;
-      }
-      .p {
-        align: center;
-      }
-	  
-	  /* Import Google font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-:root {
-  --text-color: #FFFFFF;
-  --icon-color: #ACACBE;
-  --icon-hover-bg: #5b5e71;
-  --placeholder-color: #dcdcdc;
-  --outgoing-chat-bg: #343541;
-  --incoming-chat-bg: #444654;
-  --outgoing-chat-border: #343541;
-  --incoming-chat-border: #444654;
-}
-
-[data-theme="dark"] {
-  --text-color: #343541;
-  --icon-color: #a9a9bc;
-  --icon-hover-bg: #f1f1f3;
-  --placeholder-color: #6c6c6c;
-  --outgoing-chat-bg: #FFFFFF;
-  --incoming-chat-bg: #F7F7F8;
-  --outgoing-chat-border: #FFFFFF;
-  --incoming-chat-border: #D9D9E3;
-}
-
-body {
-  background: var(--outgoing-chat-bg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-}
-
-
-header .theme-switch {
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: var(--icon-color);
-  transition: background-color 0.3s ease;
-  padding: 8px;
-  align-items: center; 
-}
-
-header .theme-switch:hover {
-  background-color: var(--icon-hover-bg);
-  border-radius: 50%;
-  align-items: center; 
-}
-
-.chat-container {
-  margin-top: 80px; /* Adjust margin top to accommodate header */
-  overflow-y: auto;
-  padding-bottom: 100px;
-  width: 100%;
-}
-
-.default-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  color: var(--text-color);
-}
-
-.default-text .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-.chat-container .chat {
-  padding: 25px 10px;
-  display: flex;
-  justify-content: center;
-  color: var(--text-color);
-}
-.chat-container .chat.outgoing {
-  background: var(--outgoing-chat-bg);
-  border: 1px solid var(--outgoing-chat-border);
-}
-.chat-container .chat.incoming {
-  background: var(--incoming-chat-bg);
-  border: 1px solid var(--incoming-chat-border);
-}
-.chat .chat-content {
-  display: flex;
-  max-width: 1200px;
-  width: 100%;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-span.material-symbols-rounded {
-  user-select: none;
-  cursor: pointer;
-}
-.chat .chat-content span {
-  cursor: pointer;
-  font-size: 1.3rem;
-  color: var(--icon-color);
-  visibility: hidden;
-}
-.chat:hover .chat-content:not(:has(.typing-animation), :has(.error)) span {
-  visibility: visible;
-}
-.chat .chat-details {
-  display: flex;
-  align-items: center;
-}
-.chat .chat-details img {
-  width: 35px;
-  height: 35px;
-  align-self: flex-start;
-  object-fit: cover;
-  border-radius: 2px;
-}
-.chat .chat-details p {
-  white-space: pre-wrap;
-  font-size: 1.05rem;
-  padding: 0 50px 0 25px;
-  color: var(--text-color);
-  word-break: break-word;
-}
-.chat .chat-details p.error {
-  color: #e55865;
-}
-.chat .typing-animation {
-  padding-left: 25px;
-  display: inline-flex;
-}
-.typing-animation .typing-dot {
-  height: 7px;
-  width: 7px;
-  border-radius: 50%;
-  margin: 0 3px;
-  opacity: 0.7;
-  background: var(--text-color);
-  animation: animateDots 1.5s var(--delay) ease-in-out infinite;
-}
-.typing-animation .typing-dot:first-child {
-  margin-left: 0;
-}
-@keyframes animateDots {
-  0%,44% {
-    transform: translateY(0px);
-  }
-  28% {
-    opacity: 0.4;
-    transform: translateY(-6px);
-  }
-  44% {
-    opacity: 0.2;
-  }
-}
-.default-text .card {
-  background: var(--incoming-chat-bg);
-  padding: 15px;
-  margin: 10px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  flex: 1;
-  min-width: 250px;
-  max-width: 300px;
-  text-align: center;
-}
-
-.default-text .card h2 {
-  margin-bottom: 10px;
-}
-
-.default-text .card .card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  align-items: center; /* Center align content vertically */
-  text-align: center; /* Center align content horizontally */
-}
-
-.default-text .card .card-content p {
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  justify-content: center; /* Center align paragraph content */
-}
-
-.default-text .card .card-content .material-symbols-rounded {
-  margin-right: 5px;
-  font-size: 1.2rem;
-  vertical-align: middle; /* Align icon vertically */
-}
-
-.web-icon {
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: var(--icon-color);
-  transition: background-color 0.3s ease;
-  padding: 8px;
-  align-items: center;
-}
-
-.web-icon:hover {
-  background-color: var(--icon-hover-bg);
-  border-radius: 50%;
-  align-items: center; 
-}
-.default-text .card .card-content .material-symbols-rounded.edit {
-  color: #007BFF; /* أزرق للأيقونة edit */
-}
-
-.default-text .card .card-content .material-symbols-rounded.lightbulb {
-  color: #FFC107; /* أصفر للأيقونة lightbulb */
-}
-
-.default-text .card .card-content .material-symbols-rounded.event {
-  color: #28A745; /* أخضر للأيقونة event */
-}
-
-.default-text .card .card-content .material-symbols-rounded.info {
-  color: #DC3545; /* أحمر للأيقونة info */
-}
-.send-btn {
-color :#007BFF;
-}
-
+        /* Import Google font - Poppins */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        :root {
+            --text-color: #FFFFFF;
+            --icon-color: #ACACBE;
+            --icon-hover-bg: #5b5e71;
+            --placeholder-color: #dcdcdc;
+            --outgoing-chat-bg: #343541;
+            --incoming-chat-bg: #444654;
+            --outgoing-chat-border: #343541;
+            --incoming-chat-border: #444654;
+        }
+        .light-mode {
+            --text-color: #343541;
+            --icon-color: #a9a9bc;
+            --icon-hover-bg: #f1f1f3;
+            --placeholder-color: #6c6c6c;
+            --outgoing-chat-bg: #FFFFFF;
+            --incoming-chat-bg: #F7F7F8;
+            --outgoing-chat-border: #FFFFFF;
+            --incoming-chat-border: #D9D9E3;
+        }
+        body {
+            background: var(--outgoing-chat-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        header {
+            width: 100%;
+            padding: 20px 0;
+            background-color: var(--incoming-chat-bg);
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            border-bottom: 1px solid var(--incoming-chat-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+        header h1 {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin: 0;
+            padding: auto;
+            text-align: center;
+        }
+        header .icons-container {
+            display: flex;
+            align-items: center;
+        }
+        header .theme-switch {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--icon-color);
+            transition: background-color 0.3s ease;
+            padding: 8px;
+        }
+        header .theme-switch:hover {
+            background-color: var(--icon-hover-bg);
+            border-radius: 50%;
+        }
+        .chat-container {
+            margin-top: 80px; /* Adjust margin top to accommodate header */
+            overflow-y: auto;
+            max-height: calc(100vh - 80px); /* Adjust max height to fit remaining space */
+            padding-bottom: 150px;
+            width: 100%;
+        }
+        .typing-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--incoming-chat-bg);
+            border-top: 1px solid var(--incoming-chat-border);
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .typing-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+        }
+        .typing-textarea {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: var(--outgoing-chat-bg);
+            border-radius: 20px;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        .typing-textarea textarea {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            resize: none;
+            font-family: "Poppins", sans-serif;
+            font-size: 1rem;
+        }
+        .typing-textarea textarea::placeholder {
+            color: var(--placeholder-color);
+        }
+        .typing-textarea .material-symbols-rounded {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--icon-color);
+            transition: background-color 0.3s ease;
+            padding: 8px;
+        }
+        .typing-controls .material-symbols-rounded {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--icon-color);
+            transition: background-color 0.3s ease;
+            padding: 8px;
+        }
+        .typing-controls .material-symbols-rounded:hover {
+            background-color: var(--icon-hover-bg);
+            border-radius: 50%;
+        }
+        .default-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-color);
+        }
+        .default-text .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .default-text .card {
+            background: var(--incoming-chat-bg);
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+        }
+        .default-text .card h2 {
+            margin-bottom: 10px;
+        }
+        .default-text .card .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center; /* Center align content vertically */
+            text-align: center; /* Center align content horizontally */
+        }
+        .default-text .card .card-content p {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            justify-content: center; /* Center align paragraph content */
+        }
+        .default-text .card .card-content .material-symbols-rounded {
+            margin-right: 5px;
+            font-size: 1.2rem;
+            vertical-align: middle; /* Align icon vertically */
+        }
+        .web-icon {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--icon-color);
+            transition: background-color 0.3s ease;
+            padding: 8px;
+        }
+        .web-icon:hover {
+            background-color: var(--icon-hover-bg);
+            border-radius: 60%;
+        }
+        .user-message, .ai-message {
+            background: var(--incoming-chat-bg);
+            color: var(--text-color);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .user-message {
+            align-self: flex-end;
+            background: var(--outgoing-chat-bg);
+        }
+        .p {
+            align: center;
+        }
     </style>
 </head>
 <body>
-<header>
-  <div class="logo-container">
-  </div>
-    <div class="logo-container">
-    <h1>WailAI</h1>
-  </div>
-    <div class="theme-switch material-symbols-rounded" id="theme-btn">Help</div>
-  </div>
-</header>
-</head>
-	<p class="has-line-data" data-line-start="0" data-line-end="4">&lt;!-- Project Logo --&gt;<br>
-&lt;p align=“center”&gt;<br>
-&lt;img src=“icon.png” alt=“WailAI Logo” width=“200” /&gt;<br>
-&lt;/p&gt;</p>
-<p class="has-line-data" data-line-start="5" data-line-end="7">&lt;!-- Project Title --&gt;<br>
-&lt;h1 align=“center”&gt;WailAI&lt;/h1&gt;</p>
-<p class="has-line-data" data-line-start="8" data-line-end="12">&lt;!-- Project Description --&gt;<br>
-&lt;p align=“center”&gt;<br>
-&lt;strong&gt;المساعد أفضل الذي يعمل ب WailJSCode&lt;/strong&gt;<br>
-&lt;/p&gt;</p>
-<p class="has-line-data" data-line-start="13" data-line-end="21">&lt;!-- Table of Contents --&gt;<br>
-&lt;p align=“center”&gt;<br>
-&lt;a href=&quot;#مقدمة&quot;&gt;مقدمة&lt;/a&gt; •<br>
-&lt;a href=&quot;#مميزات&quot;&gt;مميزات&lt;/a&gt; •<br>
-&lt;a href=&quot;#تثبيت&quot;&gt;تثبيت&lt;/a&gt; •<br>
-&lt;a href=&quot;#دليل استعمال&quot;&gt;دليل استعمال&lt;/a&gt; •<br>
-&lt;a href=&quot;#تواصل&quot;&gt;تواصل&lt;/a&gt;<br>
-&lt;/p&gt;</p>
-<hr>
-<h2 class="code-line" data-line-start=24 data-line-end=25 ><a id="_24"></a>مقدمة</h2>
-<p class="has-line-data" data-line-start="25" data-line-end="27">موقع “WailAI” هو منصة تفاعلية تعتمد على الذكاء الاصطناعي لتوفير خدمات متقدمة في المحادثة والتفاعل. يتميز الموقع بتصميمه الحديث والبسيط الذي يسهل على المستخدم التفاعل معه بسلاسة عبر أي جهاز.<br>
-<a href="https://wailapp.github.io/wailai/">https://wailapp.github.io/wailai/</a></p>
-<h2 class="code-line" data-line-start=28 data-line-end=29 ><a id="_28"></a>مميزات</h2>
-<ul>
-<li class="has-line-data" data-line-start="30" data-line-end="31"><strong>كتابة مقال من ويكيبيديا</strong>: و ذلك بمجرد قول “اكتب مقال عن (اسم مقال)”.</li>
-<li class="has-line-data" data-line-start="31" data-line-end="32"><strong>رد السريع</strong>: لداعي لانتضار فهناك WailAI السريع.</li>
-<li class="has-line-data" data-line-start="32" data-line-end="33"><strong>بحث من انترنت (هذه ميزة قيد انجاز)</strong>: فهو مبني على جوجل (Google) يمكنك من بحث اي شيء بكل سهولة.</li>
-<li class="has-line-data" data-line-start="33" data-line-end="34"><strong>ميزات العادية</strong>:مثل الحساب ,ماهو اليوم …</li>
-</ul>
-<h2 class="code-line" data-line-start=34 data-line-end=35 ><a id="_34"></a>تثبيت</h2>
-<p class="has-line-data" data-line-start="36" data-line-end="37">لتثبيت WailAI يجب:</p>
-<ol>
-<li class="has-line-data" data-line-start="38" data-line-end="43">
-<p class="has-line-data" data-line-start="38" data-line-end="39"><strong>في Linux أو Termux android:</strong></p>
-<pre><code class="has-line-data" data-line-start="41" data-line-end="43" class="language-bash">git <span class="hljs-built_in">clone</span> https://github.com/WailApp/wailai.git
-<span class="hljs-built_in">cd</span> wailai
-</code></pre>
-</li>
-</ol>
-<h2 class="code-line" data-line-start=43 data-line-end=44 ><a id="__43"></a>دليل استعمال</h2>
-<p class="has-line-data" data-line-start="44" data-line-end="45">دليل استعمال WailAI 2.0 اذهب الى ملف التالي <a href="http://HELP.md">HELP.md</a> أو انقر هنا &lt;a href=&quot;<a href="http://HELP.md">HELP.md</a>&quot;&gt;دليل استعمال&lt;/a&gt;.</p>
-<h2 class="code-line" data-line-start=46 data-line-end=47 ><a id="_46"></a>تواصل</h2>
-<p class="has-line-data" data-line-start="48" data-line-end="50">لتواصل WailTech at <a href="mailto:gamesup648@gmail.com">gamesup648@gmail.com</a>.<br>
-WailTech for WailApp 2019-2024</p>
+    <header>
+        <div class="logo-container">
+            <h1>WailAI</h1>
+        </div>
+        <div class="theme-switch material-symbols-rounded" id="theme-btn">Help</div>
+    </header>
+    <div class="chat-container">
+        <div class="default-text">
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-content">
+                        <!-- Project Logo -->
+                        <p align="center">
+                            <img src="icon.png" alt="logo" width="100" height="100" />
+                        </p>
+                        <!-- Project Title -->
+                        <h2 align="center">WailAI - روبوت دردشة</h2>
+                        <!-- Project Description -->
+                        <p align="center">
+                            WailAI هو روبوت دردشة بسيط مصمم باستخدام HTML, CSS, وJavaScript.
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <!-- Installation Instructions -->
+                        <h2>التثبيت</h2>
+                        <p>
+                            لاستنساخ وتشغيل هذا المشروع، ستحتاج إلى Node.js وnpm مثبتين على جهاز الكمبيوتر الخاص بك.
+                        </p>
+                        <p>
+                            1. استنساخ هذا المستودع:
+                            <br>
+                            `git clone https://github.com/WailAI/WailAI.git`
+                        </p>
+                        <p>
+                            2. انتقل إلى مجلد المشروع:
+                            <br>
+                            `cd WailAI`
+                        </p>
+                        <p>
+                            3. تثبيت التبعيات:
+                            <br>
+                            `npm install`
+                        </p>
+                        <p>
+                            4. بدء التطبيق:
+                            <br>
+                            `npm start`
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <!-- Usage Instructions -->
+                        <h2>الاستخدام</h2>
+                        <p>
+                            بمجرد بدء التطبيق، افتح متصفح الويب الخاص بك وانتقل إلى http://localhost:3000 للاستمتاع بروبوت الدردشة.
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <!-- Contributing Instructions -->
+                        <h2>المساهمة</h2>
+                        <p>
+                            نحن نرحب بالمساهمات! الرجاء اتباع خطوات التثبيت أعلاه وإرسال طلبات السحب إلى الفرع الرئيسي.
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <!-- License Information -->
+                        <h2>الرخصة</h2>
+                        <p>
+                            هذا المشروع مرخص بموجب رخصة MIT.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="typing-container">
+        <div class="typing-content">
+            <div class="typing-textarea">
+                <textarea id="input-field" rows="1" placeholder="اكتب رسالة..."></textarea>
+                <span class="material-symbols-rounded" id="send-btn">send</span>
+            </div>
+        </div>
+        <div class="typing-controls">
+            <span class="material-symbols-rounded web-icon">mic</span>
+            <span class="material-symbols-rounded web-icon">photo_camera</span>
+            <span class="material-symbols-rounded web-icon">mood</span>
+        </div>
+    </div>
 </body>
 </html>
-
