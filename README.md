@@ -40,7 +40,7 @@
    ```bash
    git clone https://github.com/WailApp/wailai.git
    cd wailai
- 2.  **دليل استعمال:**
+ 2.  **دليل استعمال**
 دليل استعمال WailAI 2.0 اذهب الى ملف التالي HELP.md أو انقر هنا <a href="HELP.md">دليل استعمال</a>.
 
 ## تواصل
