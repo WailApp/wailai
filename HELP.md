@@ -51,6 +51,14 @@
   <p align="center">
   WailAI 1.X (Old)
   </p>
+
+  -**لقطات من صور**
+    <p align="center">
+  <img src="WailAIold.jpg" alt="WailAI Logo Old" width="200" />
+</p>
+  <p align="center">
+  WailAI 1.X (Old)
+  </p>
   
 ## أوامر
 
@@ -102,3 +110,4 @@
 
 **هذا مشروع <a href="https://github.com/WailApp/wailai/tree/main">مصدر مفتوح </a> يمكن تحميله و تعديله باتباع <a href="LICENSE">شروط و أحكام</a>.**
 
+WailTech for WailApp 2019-2024
