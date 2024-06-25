@@ -40,11 +40,11 @@
    ```bash
    git clone https://github.com/WailApp/wailai.git
    cd wailai
- 2.  **Usage:**
-Once installed, interact with WailAI through a web browser or integrate it into your applications for AI-based functionalities.
+ 2.  **دليل استعمال:**
+دليل استعمال WailAI 2.0 اذهب الى ملف التالي HELP.md أو انقر هنا <a href="HELP.md">دليل استعمال</a>.
 
-## Contact
+## تواصل
 
-For inquiries and support, please contact WailTech at gamesup648@gmail.com.
+لتواصل WailTech at gamesup648@gmail.com.
 WailTech for WailApp 2019-2024
 
