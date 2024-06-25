@@ -35,7 +35,7 @@
 
 لتثبيت WailAI يجب:
 
-1. **في Linux أو termux android:**
+1. **في Linux أو Termux android:**
 
    ```bash
    git clone https://github.com/WailApp/wailai.git
