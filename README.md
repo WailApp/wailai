@@ -13,11 +13,11 @@
 
 <!-- Table of Contents -->
 <p align="center">
-  <a href="#overview">مقدمة</a> •
-  <a href="#features">مميزات</a> •
-  <a href="#installation">تثبيت في جهاز</a> •
-  <a href="#usage">دليل استعمال</a> •
-  <a href="#contact">تواصل</a>
+  <a href="#مقدمة">مقدمة</a> •
+  <a href="#مميزات">مميزات</a> •
+  <a href="#تثبيت في جهاز">تثبيت في جهاز</a> •
+  <a href="#دليل استعمال">دليل استعمال</a> •
+  <a href="#تواصل">تواصل</a>
 </p>
 
 ---
