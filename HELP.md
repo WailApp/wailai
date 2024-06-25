@@ -38,3 +38,7 @@
 - **موقع:** https://wailapp.github.io/wailai/
 - **تم كتابته ب:** Html /CSS /JS /(من أجل WailAi 1.0 )Java
 
+## أوامر
+
+
+
