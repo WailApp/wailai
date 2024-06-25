@@ -37,6 +37,13 @@
 - **بلد المنشأ:** الجزائر
 - **موقع:** https://wailapp.github.io/wailai/
 - **تم كتابته ب:** Html /CSS /JS /(من أجل WailAi 1.0 )Java
+- **شعار:**
+  <p align="center">
+  <img src="icon.png" alt="WailAI Logo" width="200" />
+</p>
+  <p align="center">
+  WailAI 2.0 (2024)
+</p>
 
 ## أوامر
 
