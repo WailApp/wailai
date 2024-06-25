@@ -16,7 +16,7 @@
     <title>WailAI - صفحة غير موجودة</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: #edeff2;
             color: #333;
             text-align: center;
@@ -27,35 +27,44 @@
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-5px);
         }
         h1 {
             font-size: 48px;
             margin-bottom: 20px;
+            color: #007bff;
         }
         p {
             font-size: 18px;
             margin-bottom: 30px;
+            line-height: 1.6;
         }
         a {
             color: #007bff;
             text-decoration: none;
+            font-weight: bold;
         }
         a:hover {
             text-decoration: underline;
         }
+        img {
+            margin-bottom: 30px;
+            width: 150px;
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <p align="center">
-  <img src="icon.png" alt="WailAI Logo" width="200" />
-</p>
+        <img src="icon.png" alt="WailAI Logo" />
         <h1>404</h1>
         <p>عذرًا، الصفحة التي تبحث عنها غير موجودة.</p>
         <p>يمكنك العودة إلى <a href="index.html">الصفحة الرئيسية</a> أو استخدام القائمة للتنقل إلى صفحة أخرى.</p>
     </div>
 </body>
 </html>
-
