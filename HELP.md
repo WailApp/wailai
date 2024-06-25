@@ -70,7 +70,7 @@
   <img src="wailai2.0.jpg.png" alt="WailAI1.0" width="200" />
 </p>
   <p align="center">
-  WailAI 2.0 (beta)
+  WailAI 2.0
   </p>
   </p>
   
