@@ -97,5 +97,7 @@
 
 ## تواصل
 تواصل معنا عبر:
-**تيليغرام:** https://t.me/+cT7qv58VYrAxNTJk
-**البريد الالكتروني:** gamesup648@gmail.com
+- **تيليغرام:** https://t.me/+cT7qv58VYrAxNTJk
+- **البريد الالكتروني:** gamesup648@gmail.com
+
+** هذا مشروع 
