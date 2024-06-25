@@ -59,7 +59,12 @@
   <p align="center">
   WailAI 1.X (Android)
   </p>
-  
+      <p align="center">
+  <img src="wailai2.0betaweb.jpg" alt="WailAI1.0" width="200" />
+</p>
+  <p align="center">
+  WailAI 2.0 (beta)
+  </p>
 ## أوامر
 
 **لبدء محادثة أكتب مثلا**
