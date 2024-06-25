@@ -56,5 +56,6 @@
 
 **في Linux أو Termux android:**
 
-
+```bush
+sd
 
