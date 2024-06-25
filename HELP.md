@@ -100,4 +100,5 @@
 - **تيليغرام:** https://t.me/+cT7qv58VYrAxNTJk
 - **البريد الالكتروني:** gamesup648@gmail.com
 
-** هذا مشروع <a href="HELP.md">مصدر مفتوح </a> يمكن تحميله و تعديله باتباع <a href="LICENSE">شروط و أحكام</a>.
+**هذا مشروع <a href="https://github.com/WailApp/wailai/tree/main">مصدر مفتوح </a> يمكن تحميله و تعديله باتباع <a href="LICENSE">شروط و أحكام</a>.**
+
