@@ -54,7 +54,7 @@
 
   - **لقطات من صور**
     <p align="center">
-  <img src="https://t.me/wailaiofficial/25" alt="WailAI1.0" width="200" />
+  <img src="https://t.me/wailaiofficial/25?single" alt="WailAI1.0" width="200" />
 </p>
   <p align="center">
   WailAI 1.X (Android)
