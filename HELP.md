@@ -53,8 +53,9 @@
   </p>
 
   - **لقطات من صور**
+ <p align="center">
     <p align="center">
-  <img src="wailai1.0android.jpg" alt="WailAI1.0" width="200" />
+  <img src="wailai1.0android.jpg" align="center" alt="WailAI1.0" width="200" />
 </p>
   <p align="center">
   WailAI 1.X (Android)
@@ -70,6 +71,7 @@
 </p>
   <p align="center">
   WailAI 2.0 (beta)
+  </p>
   </p>
 ## أوامر
 
