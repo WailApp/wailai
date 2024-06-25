@@ -45,6 +45,13 @@
   WailAI 2.0 (2024)
 </p>
 
+  <p align="center">
+  <img src="WailAIold.jpg" alt="WailAI Logo Old" width="200" />
+</p>
+  <p align="center">
+  WailAI 1.X (Old)
+</p>
+
 ## أوامر
 
 لبدأ في محادثة استعمل:
