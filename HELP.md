@@ -50,11 +50,11 @@
 </p>
   <p align="center">
   WailAI 1.X (Old)
-</p>
-
+  </p>
+  
 ## أوامر
 
-## لبدأ في محادثة استعمل:
-   
+**في Linux أو Termux android:**
+
 
 
