@@ -84,6 +84,10 @@
       .typing-textarea textarea::placeholder {
         color: var(--placeholder-color);
       }
+	    .material-symbols-rounded {
+    text-decoration: none; /* إزالة الخط الأسفلي */
+    color: inherit; /* الحفاظ على لون النص كما هو */
+  }
       .typing-textarea .material-symbols-rounded {
         cursor: pointer;
         font-size: 1.5rem;
@@ -184,8 +188,7 @@ header h1 {
         background: var(--incoming-chat-bg);
         padding: 15px;
         margin: 10px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
         flex: 1;
         min-width: 250px;
         max-width: 300px;
@@ -207,7 +210,8 @@ header h1 {
         font-size: 0.9rem;
         justify-content: center; /* Center align paragraph content */
       }
-      .default-text .card .card-content .material-symbols-rounded {
+      .default-text .card .card-content 
+	  {
         margin-right: 5px;
         font-size: 1.2rem;
         vertical-align: middle; /* Align icon vertically */
@@ -414,7 +418,6 @@ span.material-symbols-rounded {
   padding: 15px;
   margin: 10px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   flex: 1;
   min-width: 250px;
   max-width: 300px;
@@ -475,9 +478,25 @@ span.material-symbols-rounded {
 .default-text .card .card-content .material-symbols-rounded.info {
   color: #DC3545; /* أحمر للأيقونة info */
 }
-.send-btn {
-color :#007BFF;
+  #send-btn {
+    color: #007BFF;
+  }
+    #delete-btn {
+    color: #DC3545;
+  }
+  #idea-btn {
+    color: #FFC107;
+  }
+#chat-input {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
+  height: 50px; /* ارتفاع يمكن تعديله حسب الحاجة */
+  line-height: 50px; /* توسيط عمودي للنص */
 }
+
+
 
     </style>
 </head>
@@ -486,7 +505,7 @@ color :#007BFF;
   <div class="logo-container">
   </div>
     <div class="logo-container">
-    <h1>WailAI</h1>
+<a href="home.html" style="text-decoration: none;"><h1>WailAI</h1></a>
   </div>
     <div class="theme-switch material-symbols-rounded" id="theme-btn">light_mode</div>
   </div>
@@ -531,11 +550,11 @@ color :#007BFF;
   <div class="typing-content">
     <div class="typing-textarea">
       <textarea id="chat-input" spellcheck="false" placeholder="يمكنك طرح سؤال هنا ..." required></textarea>
-      <span id="send-btn" class="material-symbols-rounded">send</span>
+<span id="send-btn" class="material-symbols-rounded">send</span>
     </div>
     <div class="typing-controls">
       <span id="delete-btn" class="material-symbols-rounded">delete</span>
-	 <a href="README.md" id="idea" class="material-symbols-rounded lightbulb">lightbulb</a>
+<a href="README.md" id="idea-btn" class="material-symbols-rounded lightbulb">lightbulb</a>
     </div>
   </div>
 </div>
