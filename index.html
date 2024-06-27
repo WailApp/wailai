@@ -510,6 +510,15 @@ span.material-symbols-rounded {
     <div class="theme-switch material-symbols-rounded" id="theme-btn">light_mode</div>
   </div>
 </header>
+<script>
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+    console.log('المتصفح مدعوم للخدمات الجديدة والإشعارات.');
+} else {
+    console.log('المتصفح غير مدعوم للخدمات الجديدة والإشعارات.');
+    window.location.href = 'unsupported-browser.html;
+}
+
+</script>
 
 <!-- Chat container -->
 <div class="chat-container">
