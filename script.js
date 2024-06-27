@@ -196,7 +196,6 @@ const searchOnWeb = async (query) => {
     }
 };
 
-const generalKeywords = ['قلوة', 'قحبة', 'fuck you', 'نيك موك', 'زبي','x'];
 const jokeKeywords = ['نكتة', 'نكته', 'joke', 'jokes'];
 const weatherKeywords = ['طقس في', 'درجة الحرارة في'];
 const greetingsKeywords = ['مرحبا', 'هاي', 'أهلا', 'سافا', 'Cv', 'cv'];
