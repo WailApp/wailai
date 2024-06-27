@@ -1,4 +1,6 @@
 // تحديث جديد ل WailJSCode ل WailAI
+//يرجى قراءة شروط لقيام بتعديله
+//ممنوع تغير اسم كاتب بدون ادن
 let chatInput = null;
 let sendButton = null;
 let chatContainer = null;
@@ -35,6 +37,13 @@ const defaultResponses = {
         "عذرًا، لم أتمكن من مساعدتك في هذا الوقت. 😫",
         "عذرًا، لم أفهم سؤالك تمامًا. 🤨",
         "أنا آسف، يبدو أنني لست متأكدًا كيف يمكنني مساعدتك بهذا. 🤔"
+		
+    ],
+    jokes: [
+        "لماذا لا تلعب الكرة في الغابة؟ لأن هناك الكثير من الجذوع! 😂",
+        "ما هو شيء واحد يمكنك وضعه بين الفاكهة والخضروات لجعله يبتسم؟ إجابة: وجهك! 😄",
+        "لماذا كانت الدجاجة عبر الطريق؟ لتصل إلى الجانب الآخر! 🐔",
+        "ما هو شيء واحد يمكن أن يحافظ على الحصان نشطًا؟ إجابة: هوائه! 🐎"
     ]
 };
 
@@ -94,20 +103,15 @@ const getRandomResponse = (category) => {
 };
 
 const translateText = async (text, targetLanguage) => {
-    const apiUrl = `https://libretranslate.com/translate`;
+    const translateFrom = detectLanguage(text); // الكشف عن لغة النص المصدر
+    const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${translateFrom}|${targetLanguage}`;
 
     try {
         const response = await fetch(apiUrl, {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                q: text,
-                source: detectLanguage(text),
-                target: targetLanguage,
-                format: "text"
-            })
+            }
         });
 
         if (!response.ok) {
@@ -115,13 +119,16 @@ const translateText = async (text, targetLanguage) => {
         }
 
         const data = await response.json();
-        return data.translatedText;
+        if (data.responseStatus !== 200) {
+            throw new Error(data.responseDetails);
+        }
+
+        return data.responseData.translatedText;
     } catch (error) {
         console.error('Error translating text:', error);
         return '🈳 عذرًا، حدث خطأ أثناء الترجمة.';
     }
 };
-
 const getWeather = async (city) => {
     try {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=5081bd9ecf929fe2614915b69bfbbbe2`);
@@ -195,34 +202,39 @@ const searchOnWeb = async (query) => {
         return 'عذرًا، حدث خطأ أثناء محاولة البحث على الويب.';
     }
 };
-
 const jokeKeywords = ['نكتة', 'نكته', 'joke', 'jokes'];
 const weatherKeywords = ['طقس في', 'درجة الحرارة في'];
-const greetingsKeywords = ['مرحبا', 'هاي', 'أهلا', 'سافا', 'Cv', 'cv'];
-let loveKeywords = ['أحبك', 'حبيبي', 'حبي', 'أمور'];
+const greetingsKeywords = ['مرحبا', 'هاي', 'أهلا', 'سافا', 'cv'];
+const insultKeywords = ['هايشة', 'ماك', 'كلب', 'حمار', 'زبالة', 'منغول', 'حشومة', 'خماج', 'حيوان'];
+const handleInsult = [
+    "لا تستخدم الفاظ سيئة من فضلك. 😠",
+    "الرجاء التحلي بالأدب في المحادثات. 🙏",
+    "أنا آسف، لا يمكنني الرد على هذا النوع من الكلام. 😞",
+    "يبدو أنك تحتاج إلى استراحة. 🌿"
+];
+
+let loveKeywords = ['أحبك', 'حبيبي', 'حبي', 'أمور', '❤️', '😘', '💕'];
 
 const getChatResponse = async (userText) => {
-    userText = userText.toLowerCase();
-
-    if (userText.includes('كيف حالك')) {
+    userText = userText.trim().toLowerCase();
+    
+    if (insultKeywords.some(keyword => userText.includes(keyword))) {
+        return handleInsult[Math.floor(Math.random() * handleInsult.length)];
+    } else if (userText.includes('كيف حالك')) {
         return getRandomResponse('gratitude');
-if (userText.includes('مرحبا') || 
-    userText.toLowerCase().includes('hi') || 
-    userText.includes('هاي') ||
-    userText.includes('أهلا') ||
-    userText.includes('cv') ||
-    userText.includes('👋') ||
-    userText.includes('WailAI') ||
-    userText.includes('W') ||
-    userText.includes('وائل AI')) {
-    return getRandomResponse('greetings');
-}
-
+    } else if (greetingsKeywords.some(keyword => userText.includes(keyword))) {
+        return getRandomResponse('greetings');
     } else if (userText.includes('ما هو اليوم')) {
         let today = new Date();
         return `اليوم هو ${today.toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
     } else if (userText.includes('أين أنا')) {
-        return "😫 آسف، لا يمكنني تحديد موقعك الحالي.";
+        return "آسف، لا يمكنني تحديد موقعك الحالي.";
+    } else if (userText.includes('من أنت') || userText.includes('تعريفك') || userText.includes('ماذا تكون') || userText.includes('من تكون')) {
+        return getRandomResponse('botIdentity');
+    } else if (userText.includes('ما هي وظيفتك') || userText.includes('ماذا تفعل') || userText.includes('ما تستطيع القيام به')) {
+        return getRandomResponse('general');
+    } else if (checkForKeyword(userText, jokeKeywords)) {
+        return getRandomResponse('jokes');
     } else if (userText.includes('حساب')) {
         let expression = userText.replace(/حساب|calculate/gi, '').trim();
         try {
@@ -240,37 +252,57 @@ if (userText.includes('مرحبا') ||
         let startIndex = userText.indexOf('ترجم');
         let textToTranslate = userText.substring(startIndex + 4).trim();
         return await translateText(textToTranslate, 'en'); // ترجم إلى الإنجليزية كمثال
+    } else if (userText.includes('هل أنت متزوج')) {
+        return "لا، أنا روبوت ولا أملك حالياً حياة شخصية.";
+    } else if (userText.includes('كم عمرك')) {
+        let releaseDate = new Date('2024-02-26');
+        let today = new Date();
+        let age = today.getFullYear() - releaseDate.getFullYear();
+        let m = today.getMonth() - releaseDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < releaseDate.getDate())) {
+            age--;
+        }
+        return `تاريخ إصداري كـ روبوت هو 26 فبراير 2024، لذا عمري حسب اليوم هو حوالي ${age} سنة.`;
+    } else if (userText.includes('متى عيد ميلادك')) {
+        return "ليس لدي عيد ميلاد كوني روبوتاً، ولكن يمكنني أن أغني لك أغنية عيد ميلاد!";
+    } else if (userText.includes('غني لي أغنية عيد ميلاد')) {
+        return "🎉🎂 عيد ميلاد سعيد لك! 🎂🎉";
     } else {
-        if (checkForKeyword(userText, jokeKeywords)) {
-            return getRandomResponse('jokes');
+        let foundLoveKeyword = loveKeywords.find(keyword => userText.includes(keyword));
+        if (foundLoveKeyword) {
+            return "أنا أيضاً ❤️.";
         } else if (checkForKeyword(userText, weatherKeywords)) {
             let city = extractCity(userText, weatherKeywords);
-            return await getWeather(city);
-        } else {
-            let foundGeneralKeyword = generalKeywords.find(keyword => userText.includes(keyword));
-            if (foundGeneralKeyword) {
-                return "😡 دعنا من هذا الكلام الرخيص.";
+            if (city) {
+                return await getWeather(city);
             } else {
-                return getRandomResponse('apology');
+                return "لم أتمكن من استخراج اسم المدينة. يرجى المحاولة مرة أخرى.";
             }
+        } else {
+            return getRandomResponse('apology');
         }
     }
 };
 
 
-const checkForKeyword = (text, keywords) => {
-    return keywords.some(keyword => text.includes(keyword));
+
+// Function to check if any keyword from an array is present in user input
+const checkForKeyword = (text, keywordsArray) => {
+    return keywordsArray.some(keyword => text.includes(keyword));
 };
 
-const extractCity = (text, keywords) => {
+// Function to extract city from user input based on keywords
+const extractCity = (text, keywordsArray) => {
     let city = '';
-    keywords.forEach(keyword => {
+    keywordsArray.forEach(keyword => {
         if (text.includes(keyword)) {
-            city = text.replace(new RegExp(`^.*${keyword}\\s*`), '').trim();
+            city = text.split(keyword).pop().trim();
         }
     });
     return city;
 };
+
+
 
 const handleOutgoingChat = () => {
     let userText = chatInput.value.trim();
