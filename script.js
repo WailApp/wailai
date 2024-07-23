@@ -55,8 +55,8 @@ const loadDataFromLocalStorage = () => {
 
     let defaultText = `
         <div class="default-text">
-            <h1>WailAI 2.0</h1>
-            <p class="p">WailAI بحلة جديدة وبقدرات فائقة. <br> سيتم عرض تاريخ محادثتك هنا.</p>
+            <h1>WailAI 2.0 Oméga</h1>
+            <p class="p">مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 2.0 الذي يمكنه فعل أشياء عديدة.<br> سيتم عرض تاريخ محادثتك هنا.</p>
             <div class="card-container">
                 <div class="card">
                     <div class="card-content">
@@ -309,7 +309,7 @@ const handleOutgoingChat = () => {
     if (!userText) return;
 
     chatInput.value = "";
-    chatInput.style.height = "50px";
+    chatInput.style.height = "";
 
     let outgoingChatDiv = createChatElement(`<div class="chat-content">
                                                 <div class="chat-details">
@@ -363,7 +363,7 @@ const handleDeleteChats = () => {
 };
 
 const adjustInputHeight = () => {
-    chatInput.style.height = "50px";
+    chatInput.style.height = "25px";
 };
 
 document.addEventListener("DOMContentLoaded", () => {
