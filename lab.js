@@ -2,7 +2,7 @@
 //يرجى قراءة شروط لقيام بتعديله
 //ممنوع تغير اسم كاتب بدون ادن
 // WailTech 2019-2024 ID=13082008
-//Version of WailJSCode = 0.5 (07-23-2024)
+//Version of WailJSCode = 0.5 Beta
 //Read Me = https://github.com/WailApp/wailai/blob/main/HELP.md
 let chatInput = null;
 let sendButton = null;
@@ -83,31 +83,31 @@ const loadDataFromLocalStorage = () => {
 
     let defaultText = `
         <div class="default-text">
-            <h1>WailAI 2.0 Oméga</h1>
-            <p class="p">مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 2.0 الذي يمكنه فعل أشياء عديدة.<br> سيتم عرض تاريخ محادثتك هنا.</p>
+            <h1>WailAI 2.0 Oméga (Beta)</h1>
+            <p class="p">مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 2.0 الذي يمكنه فعل أشياء عديدة.<br>أنت تستخدم اصدار تجريبي قد يكون فيه أخطاء</p>
             <div class="card-container">
                 <div class="card">
                     <div class="card-content">
-                        <span class="material-symbols-rounded edit">edit</span>
-                        <p>كتابة مقال بواسطة ويكيبيديا</p>
+                        <span class="material-symbols-rounded edit">Labs</span>
+                        <p>مميزات موجودة تجريبية</p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-content">
-                        <span class="material-symbols-rounded lightbulb">lightbulb</span>
-                        <p>حصول على مميزاتي</p>
+                        <span class="material-symbols-rounded lightbulb">Lock</span>
+                        <p>WailAI 2.0 Oméga تجريبي أمن</p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-content">
-                        <span class="material-symbols-rounded event">event</span>
-                        <p>ماهو اليوم</p>
+                        <span class="material-symbols-rounded event">Star</span>
+                        <p>مميزات أحدث عن اصدار عادي</p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-content">
-                        <span class="material-symbols-rounded info">info</span>
-                        <p>من أنا ؟</p>
+                        <span class="material-symbols-rounded info">Bolt</span>
+                        <p>يعمل على اي جهاز في عالم</p>
                     </div>
                 </div>
             </div>
