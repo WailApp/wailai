@@ -4,28 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="WailAI">
-    <meta name="theme-color" content="#edeff2">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#edeff2">
-    <meta name="msapplication-TileColor" content="#edeff2">
+    <meta name="theme-color" content="#FF8300">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#FF8300">
+    <meta name="msapplication-TileColor" content="#FF8300">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="msapplication-TileImage" content="icon.png">
     <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png" sizes="512x512">
-    <title>WailAI</title>
-    <link rel="stylesheet" href="style.css">
+	<meta name="description" content="مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 2.0 الذي يمكنه فعل أشياء عديدة.">
+<meta name="keywords" content="ذكاء اصطناعي, تعلم الآلة, معالجة اللغة الطبيعية, تحليل البيانات, تقنية, برمجة, خوارزميات, روبوتات, WailAI ,WailTech">
+    <meta name="author" content="WailTech">
+    <title>WailAI 2.0 Oméga | منصة لذكاء الصناعي</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts Link For Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined">
     <script src="script.js" defer></script>
     <script type="importmap">
-        {
-            "imports": {
-                "@google/generative-ai": "https://esm.run/@google/generative-ai"
-            }
-        }
     </script>
     <style>
       /* Import Google font - Poppins */
@@ -60,14 +56,14 @@
         display: flex;
         align-items: center;
         width: 100%;
-        max-width: 600px;
+        max-width: 700px;
       }
       .typing-textarea {
         flex: 1;
         display: flex;
         align-items: center;
         background: var(--outgoing-chat-bg);
-        border-radius: 20px;
+        border-radius: 360px;
         padding: 10px;
         margin-right: 10px;
       }
@@ -79,32 +75,33 @@
         color: var(--text-color);
         resize: none;
         font-family: "Poppins", sans-serif;
-        font-size: 1rem;
+        font-size: 15px;
+		
       }
       .typing-textarea textarea::placeholder {
         color: var(--placeholder-color);
       }
 	    .material-symbols-rounded {
-    text-decoration: none; /* إزالة الخط الأسفلي */
-    color: inherit; /* الحفاظ على لون النص كما هو */
+    text-decoration: none;
+    color: inherit;
   }
       .typing-textarea .material-symbols-rounded {
         cursor: pointer;
         font-size: 1.5rem;
         color: var(--icon-color);
         transition: background-color 0.3s ease;
-        padding: 8px;
+        padding: 3px;
       }
       .typing-controls .material-symbols-rounded {
         cursor: pointer;
         font-size: 1.5rem;
         color: var(--icon-color);
         transition: background-color 0.3s ease;
-        padding: 8px;
+        padding: 3px;
       }
       .typing-controls .material-symbols-rounded:hover {
         background-color: var(--icon-hover-bg);
-        border-radius: 50%;
+        border-radius: 35%;
       }
       .typing-container {
         position: fixed;
@@ -144,7 +141,7 @@ header {
 
 header h1 {
     font-size: 1.5rem;
-    color: var(--text-color);
+    color: #FFFFFF;
     margin: 0;
     padding: auto;
     text-align: center;
@@ -174,8 +171,8 @@ header h1 {
       .default-text {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        padding: 20px;
+        align-items: right;
+        padding: 3px;
         color: var(--text-color);
       }
       .default-text .card-container {
@@ -188,11 +185,11 @@ header h1 {
         background: var(--incoming-chat-bg);
         padding: 15px;
         margin: 10px;
-        border-radius: 15px;
+        border-radius: 30px;
         flex: 1;
         min-width: 250px;
         max-width: 300px;
-        text-align: center;
+        text-align: right;
       }
       .default-text .card h2 {
         margin-bottom: 10px;
@@ -201,20 +198,20 @@ header h1 {
         display: flex;
         flex-direction: column;
         gap: 5px;
-        align-items: center; /* Center align content vertically */
-        text-align: center; /* Center align content horizontally */
+        align-items: right;
+        text-align: right; 
       }
       .default-text .card .card-content p {
         display: flex;
-        align-items: center;
+        align-items: right;
         font-size: 0.9rem;
-        justify-content: center; /* Center align paragraph content */
+        justify-content: right;
       }
       .default-text .card .card-content 
 	  {
         margin-right: 5px;
         font-size: 1.2rem;
-        vertical-align: middle; /* Align icon vertically */
+        vertical-align: middle;
       }
       .web-icon {
         cursor: pointer;
@@ -331,7 +328,7 @@ header .theme-switch:hover {
   gap: 10px;
 }
 .chat-container .chat {
-  padding: 25px 10px;
+  padding: 20px 10px;
   display: flex;
   justify-content: center;
   color: var(--text-color);
@@ -351,6 +348,7 @@ header .theme-switch:hover {
   align-items: flex-start;
   justify-content: space-between;
 }
+
 span.material-symbols-rounded {
   user-select: none;
   cursor: pointer;
@@ -417,11 +415,11 @@ span.material-symbols-rounded {
   background: var(--incoming-chat-bg);
   padding: 15px;
   margin: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
   flex: 1;
   min-width: 250px;
   max-width: 300px;
-  text-align: center;
+  text-align: right;
 }
 
 .default-text .card h2 {
@@ -432,21 +430,21 @@ span.material-symbols-rounded {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  align-items: center; /* Center align content vertically */
-  text-align: center; /* Center align content horizontally */
+  align-items: right;
+  text-align: right;
 }
 
 .default-text .card .card-content p {
   display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  justify-content: center; /* Center align paragraph content */
+  align-items: right;
+  font-size: 1.0rem;
+  justify-content: right;
 }
 
 .default-text .card .card-content .material-symbols-rounded {
   margin-right: 5px;
   font-size: 1.2rem;
-  vertical-align: middle; /* Align icon vertically */
+  vertical-align: middle;
 }
 
 .web-icon {
@@ -464,39 +462,126 @@ span.material-symbols-rounded {
   align-items: center; 
 }
 .default-text .card .card-content .material-symbols-rounded.edit {
-  color: #007BFF; /* أزرق للأيقونة edit */
+  color: #FFFFFF;
+  background-color: #007BFF;
+  border-radius: 360px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: 24px;
+  width: 24px;
+  padding: 0;
 }
 
 .default-text .card .card-content .material-symbols-rounded.lightbulb {
-  color: #FFC107; /* أصفر للأيقونة lightbulb */
+  color: #FFFFFF;
+  background-color: #FFC107;
+  border-radius: 360px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: 24px;
+  width: 24px;
+  padding: 0;
 }
 
 .default-text .card .card-content .material-symbols-rounded.event {
-  color: #28A745; /* أخضر للأيقونة event */
+  color: #FFFFFF;
+  background-color: #28A745;
+  border-radius: 360px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: 24px;
+  width: 24px;
+  padding: 0;
 }
 
+
 .default-text .card .card-content .material-symbols-rounded.info {
-  color: #DC3545; /* أحمر للأيقونة info */
+  color: #FFFFFF;
+  background-color: #DC3545 ;
+  border-radius: 360px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: 24px;
+  width: 24px;
+  padding: 0;
 }
+
+
   #send-btn {
-    color: #007BFF;
+  color: #FFFFFF;
+  background-color: #007BFF;
+  border-radius: 360px;
+  
   }
-    #delete-btn {
-    color: #DC3545;
+  #delete-btn {
+  color: #FFFFFF;
+  background-color: #DC3545 ;
+  border-radius: 360px;
+  margin: 5px;
   }
   #idea-btn {
-    color: #FFC107;
+  color: #FFFFFF;
+  background-color: #FFC107;
+  border-radius: 360px;
+  margin: 5px;
   }
+  
 #chat-input {
+  font-size: 15px;
   display: block;
   margin: 0 auto;
   text-align: center;
   vertical-align: middle;
-  height: 50px; /* ارتفاع يمكن تعديله حسب الحاجة */
-  line-height: 50px; /* توسيط عمودي للنص */
+  height: 25px;
+  line-height: 20px;
+}
+/* قواعد CSS العامة */
+.typing-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--incoming-chat-bg);
+  border-top: 1px solid var(--incoming-chat-border);
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  overflow: hidden;
+  padding: 10px 20px;
 }
 
 
+@media (max-width: 768px) {
+  .typing-container {
+    height: 110px;
+    padding: 10px 20px;
+  }
+
+  .typing-controls {
+    position: absolute;
+    top: 0.5px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px; 
+    z-index: 10;
+  }
+
+  .typing-content {
+    margin-top: 30px; /* زيادة المسافة العليا لضمان عدم التداخل مع الأيقونات */
+    width: calc(100% - 0px); /* التأكد من أن typing-content لا يتجاوز مساحة الشاشة */
+  }
+}
 
     </style>
 </head>
@@ -525,6 +610,8 @@ if (
 } else {
     console.log('المتصفح مدعوم للخدمات الجديدة والإشعارات.');
 }
+
+
 </script>
 
 <!-- Chat container -->
@@ -535,26 +622,8 @@ if (
     <div class="card-container">
       <div class="card">
         <div class="card-content">
-          <span class="material-symbols-rounded edit">edit</span>
-          <p>كتابة مقال بواسطة ويكيبيديا</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-content">
-          <span class="material-symbols-rounded lightbulb">lightbulb</span>
-          <p>حصول على مميزاتي</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-content">
-          <span class="material-symbols-rounded event">event</span>
-          <p>ماهو اليوم</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-content">
-          <span class="material-symbols-rounded info">info</span>
-          <p>من أنا ؟</p>
+          <span class="material-symbols-rounded info">Warning</span>
+          <p>لا يمكن تشغيل WailAI حاليا ,تأكد من تفعيل JavaScript لمتابعة</p>
         </div>
       </div>
     </div>
@@ -565,7 +634,7 @@ if (
 <div class="typing-container">
   <div class="typing-content">
     <div class="typing-textarea">
-      <textarea id="chat-input" spellcheck="false" placeholder="يمكنك طرح سؤال هنا ..." required></textarea>
+      <textarea id="chat-input" spellcheck="false" placeholder="تحدث مع WailAI" required></textarea>
 <span id="send-btn" class="material-symbols-rounded">send</span>
     </div>
     <div class="typing-controls">
