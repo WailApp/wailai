@@ -2,7 +2,7 @@
 //يرجى قراءة شروط لقيام بتعديله
 //ممنوع تغير اسم كاتب بدون ادن
 // WailTech 2019-2024 ID=13082008
-//Version of WailJSCode = 0.5 Beta
+//Version of WailJSCode = 0.5 (mode unkown)
 //Read Me = https://github.com/WailApp/wailai/blob/main/HELP.md
 let chatInput = null;
 let sendButton = null;
@@ -76,44 +76,33 @@ const getPrayerTimes = async (city) => {
     }
 };
 const loadDataFromLocalStorage = () => {
-    let themeColor = localStorage.getItem("themeColor");
-
-    document.body.classList.toggle("light-mode", themeColor === "light_mode");
-    themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
-
     let defaultText = `
         <div class="default-text">
-            <h1>WailAI 2.0 Oméga (Beta)</h1>
-            <p class="p">مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 2.0 الذي يمكنه فعل أشياء عديدة.<br>أنت تستخدم اصدار تجريبي قد يكون فيه أخطاء</p>
+            <h1>WailAI 2.0 Oméga وضع تخفي</h1>
+            <p class="p">مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 2.0 الذي يمكنه فعل أشياء عديدة.<br>سيتم في هذا الوضع</p>
             <div class="card-container">
                 <div class="card">
                     <div class="card-content">
-                        <span class="material-symbols-rounded edit">Labs</span>
-                        <p>مميزات موجودة تجريبية</p>
+                        <span class="material-symbols-rounded edit">comedy_mask</span>
+                        <p>تخفي على شكل أي شخص</p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-content">
-                        <span class="material-symbols-rounded lightbulb">Lock</span>
-                        <p>WailAI 2.0 Oméga تجريبي أمن</p>
+                        <span class="material-symbols-rounded lightbulb">shield_lock</span>
+                        <p>وضع أمان مفعل</p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-content">
-                        <span class="material-symbols-rounded event">Star</span>
-                        <p>مميزات أحدث عن اصدار عادي</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-content">
-                        <span class="material-symbols-rounded info">Bolt</span>
-                        <p>يعمل على اي جهاز في عالم</p>
+                        <span class="material-symbols-rounded event">Backspace</span>
+                        <p>حذف محادثة تلقائيا بعد مغادرة</p>
                     </div>
                 </div>
             </div>
         </div>`;
 
-    chatContainer.innerHTML = localStorage.getItem("all-chats") || defaultText;
+    chatContainer.innerHTML = localStorage.getItem("all-chats-lab-lab") || defaultText;
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
 };
 
@@ -408,7 +397,7 @@ const handleOutgoingChat = () => {
 
     chatContainer.appendChild(outgoingChatDiv);
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
-    localStorage.setItem("all-chats", chatContainer.innerHTML);
+    localStorage.setItem("all-chats-lab", chatContainer.innerHTML);
 
     setTimeout(async () => {
         let incomingChatDiv = createChatElement(`<div class="chat-content">
@@ -432,20 +421,20 @@ const handleOutgoingChat = () => {
 
         incomingChatDiv.querySelector(".typing-animation").remove();
         incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
-        localStorage.setItem("all-chats", chatContainer.innerHTML);
+        localStorage.setItem("all-chats-lab", chatContainer.innerHTML);
         chatContainer.scrollTo(0, chatContainer.scrollHeight);
     }, 1000); // Simulate a delay of 1 second for bot typing effect
 };
 
 const handleThemeToggle = () => {
-    document.body.classList.toggle("light-mode");
+    document.body.classList.toggle("light-mode-lab");
     localStorage.setItem("themeColor", themeButton.innerText);
-    themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
+    themeButton.innerText = document.body.classList.contains("light-mode-lab") ? "dark_mode" : "light_mode";
 };
 
 const handleDeleteChats = () => {
     if (confirm("هل أنت متأكد أنك تريد حذف كل المحادثات؟")) {
-        localStorage.removeItem("all-chats");
+        localStorage.removeItem("all-chats-lab");
         loadDataFromLocalStorage();
     }
 };
@@ -458,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chatInput = document.querySelector("#chat-input");
     sendButton = document.querySelector("#send-btn");
     chatContainer = document.querySelector(".chat-container");
-    themeButton = document.querySelector("#theme-btn");
+    themeButton = document.querySelector("#settings-btn");
     deleteButton = document.querySelector("#delete-btn");
 
     loadDataFromLocalStorage();
