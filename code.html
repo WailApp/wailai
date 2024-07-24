@@ -1,0 +1,96 @@
+<!-- Login Form -->
+<style>
+#login-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form h2 {
+  margin-bottom: 20px;
+}
+
+.login-form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.login-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #0056b3;
+}
+
+</style>
+<div id="login-container" style="display: none;">
+  <div class="login-form">
+    <h2>تسجيل الدخول</h2>
+    <input type="password" id="login-code" placeholder="أدخل رمز الدخول" />
+    <button id="login-btn">تسجيل الدخول</button>
+	<script>
+	// تشفير الرمز باستخدام Base64
+function encodeBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+// فك تشفير الرمز باستخدام Base64
+function decodeBase64(str) {
+  return decodeURIComponent(escape(atob(str)));
+}
+
+// التحقق من وجود رمز مسجل في localStorage
+function checkLogin() {
+  const encodedCode = localStorage.getItem('loginCode');
+  if (encodedCode) {
+    const code = decodeBase64(encodedCode);
+    // تحقق من الرمز المميز (هنا يمكنك وضع المنطق الخاص بك للتحقق)
+    if (code === 'yourSecretCode') {
+      document.getElementById('login-container').style.display = 'none';
+    } else {
+      document.getElementById('login-container').style.display = 'block';
+    }
+  } else {
+    document.getElementById('login-container').style.display = 'block';
+  }
+}
+
+// تسجيل الدخول وتخزين الرمز المشفر
+document.getElementById('login-btn').addEventListener('click', function() {
+  const code = document.getElementById('login-code').value;
+  if (code === 'yourSecretCode') {
+    const encodedCode = encodeBase64(code);
+    localStorage.setItem('loginCode', encodedCode);
+    document.getElementById('login-container').style.display = 'none';
+  } else {
+    alert('رمز الدخول غير صحيح');
+  }
+});
+
+// تحقق من حالة تسجيل الدخول عند تحميل الصفحة
+window.onload = checkLogin;
+
+	</script>
+  </div>
+</div>

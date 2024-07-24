@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#0D86FF">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#0D86FF">
+    <meta name="msapplication-TileColor" content="#0D86FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileImage" content="icon3.0.png">
+    <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon3.0.png">
+    <link rel="apple-touch-icon" href="icon3.0.png" sizes="512x512">
+	<meta name="description" content="مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 3.0 الذي يمكنه فعل أشياء عديدة.">
+<meta name="keywords" content="ذكاء اصطناعي, تعلم الآلة, معالجة اللغة الطبيعية, تحليل البيانات, تقنية, برمجة, خوارزميات, روبوتات, WailAI ,WailTech">
+    <meta name="author" content="WailTech">
+    <title>WailAI 3.0 Alpha (Beta)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts Link For Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined">
+    <script src="3.0.js" defer></script>
+    <script type="importmap">
+    </script>
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.0/luxon.min.js"></script>
+    <style>
+/* تعريف الخط المحلي */
+@font-face {
+  font-family: 'Heavy';
+  src: url('./fonts/heavy.ttf') format('truetype'); /* استخدم مسار نسبي */
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* تطبيق الخط على الموقع */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Heavy', sans-serif; /* إضافة sans-serif كبديل في حال عدم تحميل الخط */
+}
+
+
+:root {
+    --text-color: #FFFFFF;
+    --icon-color: #ACACBE;
+    --icon-hover-bg: #5b5e71;
+    --placeholder-color: #dcdcdc;
+    --outgoing-chat-bg: #40414F;
+    --incoming-chat-bg: #343541;
+    --outgoing-chat-border: #40414F;
+    --incoming-chat-border: #343541;
+}
+.light-mode {
+    --text-color: #333333;
+    --icon-color: #606060;
+    --icon-hover-bg: #F0F0F0;
+    --placeholder-color: #A8A8A8;
+    --outgoing-chat-bg: #E0E0E0;
+    --incoming-chat-bg: #F0F0F0;
+    --outgoing-chat-border: #E0E0E0;
+    --incoming-chat-border: #D0D0D0;
+}
+
+      .typing-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 700px;
+      }
+      .typing-textarea {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        background: var(--outgoing-chat-bg);
+        border-radius: 360px;
+        padding: 10px;
+        margin-right: 10px;
+      }
+      .typing-textarea textarea {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--text-color);
+        resize: none;
+        font-family: "HeavyFont", sans-serif;
+        font-size: 15px;
+		
+      }
+      .typing-textarea textarea::placeholder {
+        color: var(--placeholder-color);
+      }
+	    .material-symbols-rounded {
+    text-decoration: none;
+    color: inherit;
+  }
+      .typing-textarea .material-symbols-rounded {
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--icon-color);
+        transition: background-color 0.3s ease;
+        padding: 3px;
+      }
+      .typing-controls .material-symbols-rounded {
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--icon-color);
+        transition: background-color 0.3s ease;
+        padding: 3px;
+      }
+      .typing-controls .material-symbols-rounded:hover {
+        background-color: var(--icon-hover-bg);
+        border-radius: 35%;
+      }
+      .typing-container {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: var(--incoming-chat-bg);
+        border-top: 1px solid var(--incoming-chat-border);
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      body {
+        background: var(--outgoing-chat-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+header {
+    width: 100%;
+    padding: 20px 0;
+    background-color: var(--incoming-chat-bg);
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    border-bottom: 1px solid var(--incoming-chat-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+	padding: 0 10px;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin: 0;
+    padding: auto;
+    text-align: center;
+}
+      header .icons-container {
+        display: flex;
+        align-items: center;
+      }
+      header .theme-switch {
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--icon-color);
+        transition: background-color 0.3s ease;
+        padding: 8px;
+      }
+      header .theme-switch:hover {
+        background-color: var(--icon-hover-bg);
+        border-radius: 50%;
+      }
+      .chat-container {
+        margin-top: 80px; /* Adjust margin top to accommodate header */
+        overflow-y: auto;
+        max-height: calc(100vh - 80px); /* Adjust max height to fit remaining space */
+        padding-bottom: 150px;
+        width: 100%;
+      }
+      .default-text {
+        display: flex;
+        flex-direction: column;
+        align-items: right;
+        padding: 3px;
+        color: var(--text-color);
+      }
+      .default-text .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+      .default-text .card {
+        background: var(--incoming-chat-bg);
+        padding: 15px;
+        margin: 10px;
+        border-radius: 30px;
+        flex: 1;
+        min-width: 250px;
+        max-width: 300px;
+        text-align: right;
+      }
+      .default-text .card h2 {
+        margin-bottom: 10px;
+      }
+      .default-text .card .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: right;
+        text-align: right; 
+      }
+      .default-text .card .card-content p {
+        display: flex;
+        align-items: right;
+        font-size: 0.9rem;
+        justify-content: right;
+      }
+      .default-text .card .card-content 
+	  {
+        margin-right: 5px;
+        font-size: 1.2rem;
+        vertical-align: middle;
+      }
+      .web-icon {
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--icon-color);
+        transition: background-color 0.3s ease;
+        padding: 8px;
+      }
+      .web-icon:hover {
+        background-color: var(--icon-hover-bg);
+        border-radius: 60%;
+      }
+      .user-message, .ai-message {
+        background: var(--incoming-chat-bg);
+        color: var(--text-color);
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px;
+        max-width: 80%;
+        word-wrap: break-word;
+      }
+      .user-message {
+        align-self: flex-end;
+        background: var(--outgoing-chat-bg);
+      }
+      .chat-container {
+        margin-top: 80px; /* Adjust margin top to accommodate header */
+        overflow-y: auto;
+        max-height: calc(100vh - 80px); /* Adjust max height to fit remaining space */
+        padding-bottom: 150px;
+        width: 100%;
+      }
+      .p {
+        align: center;
+      }
+
+
+[data-theme="dark"] {
+  --text-color: #343541;
+  --icon-color: #a9a9bc;
+  --icon-hover-bg: #f1f1f3;
+  --placeholder-color: #6c6c6c;
+  --outgoing-chat-bg: #FFFFFF;
+  --incoming-chat-bg: #F7F7F8;
+  --outgoing-chat-border: #FFFFFF;
+  --incoming-chat-border: #D9D9E3;
+}
+
+body {
+  background: var(--outgoing-chat-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+
+header .theme-switch {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--icon-color);
+  transition: background-color 0.3s ease;
+  padding: 8px;
+  align-items: center; 
+}
+
+header .theme-switch:hover {
+  background-color: var(--icon-hover-bg);
+  border-radius: 50%;
+  align-items: center; 
+}
+
+.chat-container {
+  margin-top: 80px; /* Adjust margin top to accommodate header */
+  overflow-y: auto;
+  padding-bottom: 100px;
+  width: 100%;
+}
+
+.default-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: var(--text-color);
+}
+
+.default-text .card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.chat-container .chat {
+  padding: 20px 10px;
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+}
+.chat-container .chat.outgoing {
+  background: var(--outgoing-chat-bg);
+  border: 1px solid var(--outgoing-chat-border);
+}
+.chat-container .chat.incoming {
+ background: var(--incoming-chat-bg);
+ border: 1px solid var(--incoming-chat-border);
+ border-radius: 20px;
+ margin: 10px; /* ضبط المسافة حول العنصر */
+}
+.chat .chat-content {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  
+}
+
+span.material-symbols-rounded {
+  user-select: none;
+  cursor: pointer;
+}
+.chat .chat-content span {
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: var(--icon-color);
+  visibility: hidden;
+}
+.chat:hover .chat-content:not(:has(.typing-animation), :has(.error)) span {
+  visibility: visible;
+}
+.chat .chat-details {
+  display: flex;
+  align-items: center;
+}
+.chat .chat-details img {
+  width: 35px;
+  height: 35px;
+  align-self: flex-start;
+  object-fit: cover;
+  border-radius: 360px;
+}
+.chat .chat-details p {
+  white-space: pre-wrap;
+  font-size: 1.05rem;
+  padding: 0 50px 0 25px;
+  color: var(--text-color);
+  word-break: break-word;
+}
+.chat .chat-details p.error {
+  color: #e55865;
+}
+.chat .typing-animation {
+  padding-left: 25px;
+  display: inline-flex;
+}
+.typing-animation .typing-dot {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  margin: 0 3px;
+  opacity: 0.7;
+  background: var(--text-color);
+  animation: animateDots 1.5s var(--delay) ease-in-out infinite;
+}
+.typing-animation .typing-dot:first-child {
+  margin-left: 0;
+}
+@keyframes animateDots {
+  0%,44% {
+    transform: translateY(0px);
+  }
+  28% {
+    opacity: 0.4;
+    transform: translateY(-6px);
+  }
+  44% {
+    opacity: 0.2;
+  }
+}
+.default-text .card {
+  background: var(--incoming-chat-bg);
+  padding: 15px;
+  margin: 10px;
+  border-radius: 15px;
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  text-align: right;
+}
+
+.default-text .card h2 {
+  margin-bottom: 10px;
+}
+
+.default-text .card .card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: right;
+  text-align: right;
+}
+
+.default-text .card .card-content p {
+  display: flex;
+  align-items: right;
+  font-size: 1.0rem;
+  justify-content: right;
+}
+
+.default-text .card .card-content .material-symbols-rounded {
+  margin-right: 5px;
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+.web-icon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--icon-color);
+  transition: background-color 0.3s ease;
+  padding: 8px;
+  align-items: center;
+}
+
+.web-icon:hover {
+  background-color: var(--icon-hover-bg);
+  border-radius: 50%;
+  align-items: center; 
+}
+.default-text .card .card-content .material-symbols-rounded.edit {
+  color: #FFFFFF;
+  background-color: #007BFF;
+  border-radius: 360px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: 24px;
+  width: 24px;
+  padding: 0;
+}
+
+.default-text .card .card-content .material-symbols-rounded.lightbulb {
+  color: #FFFFFF;
+  background-color: #FFC107;
+  border-radius: 360px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: 24px;
+  width: 24px;
+  padding: 0;
+}
+
+.default-text .card .card-content .material-symbols-rounded.event {
+  color: #FFFFFF;
+  background-color: #28A745;
+  border-radius: 360px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: 24px;
+  width: 24px;
+  padding: 0;
+}
+
+
+.default-text .card .card-content .material-symbols-rounded.info {
+  color: #FFFFFF;
+  background-color: #DC3545 ;
+  border-radius: 360px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: 24px;
+  width: 24px;
+  padding: 0;
+}
+
+
+  #send-btn {
+  color: #FFFFFF;
+  background-color: #007BFF;
+  border-radius: 360px;
+  height: 30px; 
+  }
+  #delete-btn {
+  color: #DC3545;
+
+  }
+  #idea-btn {
+  color: #FFC107;
+  }
+    #lab-btn {
+  color: #4B77D1;
+  }
+#chat-input {
+  font-size: 15px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
+  height: 25px;
+  line-height: 20px;
+}
+/* قواعد CSS العامة */
+.typing-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--incoming-chat-bg);
+  border-top: 1px solid var(--incoming-chat-border);
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  overflow: hidden;
+  padding: 10px 20px;
+}
+
+
+@media (max-width: 768px) {
+  .typing-container {
+    height: 110px;
+    padding: 10px 20px;
+  }
+
+  .typing-controls {
+    position: absolute;
+    top: 0.5px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px; 
+    z-index: 10;
+  }
+
+  .typing-content {
+    margin-top: 30px; /* زيادة المسافة العليا لضمان عدم التداخل مع الأيقونات */
+    width: calc(100% - 0px); /* التأكد من أن typing-content لا يتجاوز مساحة الشاشة */
+  }
+}
+.btn:last-child {
+  border: orange;
+  background: transparent;
+  color: orange;
+}
+.btn {
+  padding: 10px 26px;
+  background: #00aff9;
+  border-radius: 35px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn:last-child:hover {
+  background-color: orange;
+  color: #ffffff;
+}
+.copy-icon {
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+        .material-symbols-rounded {
+            font-family: 'Material Icons';
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+  <div class="logo-container">
+  </div>
+    <div class="logo-container">
+<a href="home.html" style="text-decoration: none;"><h1>WailAI (Beta)</h1></a>
+  </div>
+    <div class="theme-switch material-symbols-rounded" id="theme-btn">settings</div>
+  </div>
+</header>
+<script>
+
+if (
+    // فحص لأي متصفح قديم غير مدعوم
+    navigator.userAgent.indexOf('MSIE') !== -1 || // Internet Explorer
+    navigator.userAgent.indexOf('Trident/') > 0 || // Internet Explorer 11 والإصدارات الأحدث
+    navigator.userAgent.indexOf('Opera') !== -1 || // Opera 12 والإصدارات الأقدم
+    navigator.userAgent.indexOf('Edge') !== -1 // Microsoft Edge قديمة
+	    (navigator.userAgent.indexOf('Chrome') !== -1 && parseInt(navigator.userAgent.match(/Chrome\/(\d+)/)[1], 10) < 50) || // Google Chrome الإصدارات القديمة (أقل من 50)
+    (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Version/') !== -1 && parseInt(navigator.userAgent.match(/Version\/(\d+)/)[1], 10) < 10) // Safari الإصدارات القديمة (أقل من 10)
+) {
+    console.log('المتصفح غير مدعوم للخدمات الجديدة والإشعارات.');
+    window.location.href = 'unsupported-browser.html';
+} else {
+    console.log('المتصفح مدعوم للخدمات الجديدة والإشعارات.');
+}
+
+
+</script>
+
+<!-- Chat container -->
+<div class="chat-container">
+  <!-- Default text -->
+  <div class="default-text">
+    <h1>WailAI</h1>
+    <div class="card-container">
+      <div class="card">
+        <div class="card-content" id="typing-content">
+          <span class="material-symbols-rounded info">error</span>
+          <p>لا يمكن تشغيل WailAI حاليا ,تأكد من تفعيل JavaScript لمتابعة</p>
+		  <button onclick="window.location.href='unhelp.html'" class="btn">مساعدة</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Typing container -->
+<div class="typing-container">
+  <div class="typing-content">
+    <div class="typing-textarea">
+      <textarea id="chat-input" spellcheck="false" placeholder="تحدث مع WailAI" required></textarea>
+<span id="send-btn" class="material-symbols-rounded">send</span>
+    </div>
+    <div class="typing-controls">
+      <span id="delete-btn" class="material-symbols-rounded">delete</span>
+<a href="#" id="idea-btn" class="material-symbols-rounded lightbulb">lightbulb</a>
+    </div>
+  </div>
+</div>
+    <script>
+        document.getElementById('idea-btn').addEventListener('click', function(event) {
+            event.preventDefault(); // منع الانتقال إلى العنصر
+            Swal.fire({
+                title: 'مميزاتي',
+                text: 'أنا سريع و جميل و أعمل بWailJSCode 1.0 الأحدث',
+                confirmButtonText: 'موافق'
+            });
+        });
+    </script>
+</body>
+</html>
