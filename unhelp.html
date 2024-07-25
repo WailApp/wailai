@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -13,11 +13,26 @@
     <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png" sizes="512x512">
-    <title>WailAI - Update - تحديث</title>
-    <style>       body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #343541;
-            color: #FFFFFF;
+    <title>WailAI - Update</title>
+    <style> 
+@font-face {
+  font-family: 'Heavy';
+  src: url('./fonts/heavy.ttf') format('truetype'); /* Use relative path */
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply font to the website */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Heavy', sans-serif; /* Add sans-serif as a fallback */
+}
+        body {
+            font-family: 'Heavy', sans-serif;
+            background-color: #FFFFFF;
+            color: #343541;
             text-align: center;
             padding: 50px;
         }
@@ -25,7 +40,7 @@
         h1 {
             font-size: 48px;
             margin-bottom: 20px;
-            color: orange;
+            color: #0085dd;
         }
         p {
             font-size: 18px;
@@ -33,7 +48,7 @@
             line-height: 1.6;
         }
         a {
-            color: orange;
+            color: #1cdc3e;
             text-decoration: none;
             font-weight: bold;
         }
@@ -42,39 +57,40 @@
         }
         img {
             margin-bottom: 30px;
-            width: 80px;
-        }</style>
-		</head>
-		<body>
-		        <img src="moderator_badge_4.png" alt="WailAI Logo" />
-				<h1>Update</h1>
-		<h2 id="-">أسئلة شائعة</h2>
-<p><strong>لماذا لا يعمل WailAI في متصفح ؟</strong>
-يعود السبب في عدم عمل WailAI هو متصفح قديم (غير مدعم ) اذا كان احد اصدرك حسب قائمة:</p>
-<pre><code class="lang-bush">Internet Explorer
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <img src="moderator_badge_4.png" alt="WailAI Logo" />
+    <h1>Update</h1>
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>Why doesn't WailAI work in my browser?</strong></p>
+    <p>The reason WailAI is not working might be because your browser is outdated. If your version is listed below:</p>
+    <pre><code class="lang-bush">Internet Explorer
 
-Internet Explorer <span class="hljs-number">11</span>
+Internet Explorer 11
 
-Opera <span class="hljs-number">12</span>
+Opera 12
 
-Microsoft Edge قديم
+Old Microsoft Edge
 
-Google Chrome الإصدارات القديمة (أقل من <span class="hljs-number">50</span>)
+Old Google Chrome (below 50)
 
-Safari الإصدارات القديمة (أقل من <span class="hljs-number">10</span>)
+Old Safari (below 10)
 
-Firefox الإصدارات القديمة (أقل من <span class="hljs-number">50</span>)
+Old Firefox (below 50)
 </code></pre>
-<p><strong>يجب</strong>
-حدث متصفح خاص بك الى أحدث نسخة و اذا كان جهاز لا يدعم نسخة الجديدة اختر النسخة احدث لجهاز على أقل.
-إليك بعض المواقع التي يمكن استخدامها لتحديث المتصفحات الشهيرة:</p>
-<p>Google Chrome:</p>
-<p>تحديث Google Chrome - يمكن للمستخدمين هنا تحديث متصفح Google Chrome إلى أحدث إصدار.
-Mozilla Firefox:</p>
-<p>تحديث Mozilla Firefox - الموقع الرسمي لـ Mozilla يوفر تحديثات لمتصفح Firefox.
-Microsoft Edge:</p>
-<p>تحديث Microsoft Edge - الموقع الرسمي لـ Microsoft Edge يحتوي على خيارات لتحديث المتصفح.
-Apple Safari:</p>
-<p>تحديث Apple Safari - من خلال هذا الرابط، يمكن لمستخدمي Apple تحديث متصفح Safari على أجهزتهم.
-تذكر دائمًا تحديث المتصفحات بانتظام للحصول على أحدث الميزات والأمان.</p>
-</body></html>
+    <p><strong>You should</strong> update your browser to the latest version. If your device doesn't support the latest version, choose the latest version available for your device at least.
+    Here are some websites you can use to update popular browsers:</p>
+    <p>Google Chrome:</p>
+    <p>Update Google Chrome - Users can update Google Chrome to the latest version here.</p>
+    <p>Mozilla Firefox:</p>
+    <p>Update Mozilla Firefox - The official Mozilla site provides updates for Firefox.</p>
+    <p>Microsoft Edge:</p>
+    <p>Update Microsoft Edge - The official Microsoft Edge site has options to update the browser.</p>
+    <p>Apple Safari:</p>
+    <p>Update Apple Safari - This link allows Apple users to update Safari on their devices.
+    Always remember to update your browsers regularly to get the latest features and security.</p>
+</body>
+</html>

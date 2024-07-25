@@ -5,25 +5,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#FF8300">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#FF8300">
-    <meta name="msapplication-TileColor" content="#FF8300">
+    <meta name="theme-color" content="#0D86FF">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#0D86FF">
+    <meta name="msapplication-TileColor" content="#0D86FF">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="msapplication-TileImage" content="icon.png">
+    <meta name="msapplication-TileImage" content="icon3.0.png">
     <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="apple-touch-icon" href="icon.png" sizes="512x512">
-	<meta name="description" content="مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 2.0 الذي يمكنه فعل أشياء عديدة.">
+    <link rel="icon" type="image/png" href="icon3.0.png">
+    <link rel="apple-touch-icon" href="icon3.0.png" sizes="512x512">
+	<meta name="description" content="مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 3.0 الذي يمكنه فعل أشياء عديدة.">
 <meta name="keywords" content="ذكاء اصطناعي, تعلم الآلة, معالجة اللغة الطبيعية, تحليل البيانات, تقنية, برمجة, خوارزميات, روبوتات, WailAI ,WailTech">
     <meta name="author" content="WailTech">
-    <title>وضع تخفي WailAI 2.0</title>
+    <title>WailAI 3.0 Alpha</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts Link For Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined">
-    <script src="lab.js" defer></script>
+    <script src="3.0.js" defer></script>
     <script type="importmap">
     </script>
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.0/luxon.min.js"></script>
     <style>
 /* تعريف الخط المحلي */
@@ -43,6 +46,16 @@
 }
 
 
+.light-mode {
+    --text-color: #FFFFFF;
+    --icon-color: #ACACBE;
+    --icon-hover-bg: #5b5e71;
+    --placeholder-color: #dcdcdc;
+    --outgoing-chat-bg: #40414F;
+    --incoming-chat-bg: #343541;
+    --outgoing-chat-border: #40414F;
+    --incoming-chat-border: #343541;
+}
 :root {
     --text-color: #333333;
     --icon-color: #606060;
@@ -147,7 +160,7 @@ header h1 {
     margin: 1;
     padding: auto;
     text-align: center;
-	background: orange;
+	background: #00aff9;
 	background-size: 50px;
     border-radius: 360px;
 }
@@ -658,28 +671,50 @@ h2 {
 .fas.fa-check-circle {
   color: #1cdc3e;
   margin-left: 10px;
-}
-    </style>
+
+</style>
 </head>
 <body>
 <header>
-    <div class="theme-switch material-symbols-rounded" id="settings-btn"> </div>
+  <div class="logo-container">
+  </div>
+  <div class="logo-container">
+    <a href="javascript:void(0);" onclick="showPopup();" style="text-decoration: none;">
+      <h1>WailAI 3.0</h1>
+    </a>
+  </div>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>اختر نموذج WailAI</h2>
+      <div class="option">
+        <img src="icon2.0.png" alt="WailAI 2.0" class="option-img">
+        <a href="2.0.html">WailAI 2.0</a>
+      </div>
+      <div class="option">
+        <img src="icon3.0.png" alt="WailAI 3.0" class="option-img">
+        <a href="#"><i class="fas fa-check-circle"></i>WailAI 3.0</a>
+      </div>
+    </div>
+  </div>
+    <div class="theme-switch material-symbols-rounded" id="theme-btn">settings</div>
+  </div>
 </header>
 <script>
 
 if (
-    // فحص لأي متصفح قديم غير مدعوم
+    // Check for any old unsupported browsers
     navigator.userAgent.indexOf('MSIE') !== -1 || // Internet Explorer
-    navigator.userAgent.indexOf('Trident/') > 0 || // Internet Explorer 11 والإصدارات الأحدث
-    navigator.userAgent.indexOf('Opera') !== -1 || // Opera 12 والإصدارات الأقدم
-    navigator.userAgent.indexOf('Edge') !== -1 // Microsoft Edge قديمة
-	    (navigator.userAgent.indexOf('Chrome') !== -1 && parseInt(navigator.userAgent.match(/Chrome\/(\d+)/)[1], 10) < 50) || // Google Chrome الإصدارات القديمة (أقل من 50)
-    (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Version/') !== -1 && parseInt(navigator.userAgent.match(/Version\/(\d+)/)[1], 10) < 10) // Safari الإصدارات القديمة (أقل من 10)
+    navigator.userAgent.indexOf('Trident/') > 0 || // Internet Explorer 11 and newer versions
+    navigator.userAgent.indexOf('Opera') !== -1 || // Opera 12 and older versions
+    navigator.userAgent.indexOf('Edge') !== -1 || // Old Microsoft Edge
+    (navigator.userAgent.indexOf('Chrome') !== -1 && parseInt(navigator.userAgent.match(/Chrome\/(\d+)/)[1], 10) < 50) || // Old Google Chrome versions (less than 50)
+    (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Version/') !== -1 && parseInt(navigator.userAgent.match(/Version\/(\d+)/)[1], 10) < 10) // Old Safari versions (less than 10)
 ) {
-    console.log('المتصفح غير مدعوم للخدمات الجديدة والإشعارات.');
+    console.log('The browser is not supported for new services and notifications.');
     window.location.href = 'unsupported-browser.html';
 } else {
-    console.log('المتصفح مدعوم للخدمات الجديدة والإشعارات.');
+    console.log('The browser is supported for new services and notifications.');
 }
 function showPopup() {
   document.getElementById('popup').style.display = 'block';
@@ -695,7 +730,7 @@ window.onclick = function(event) {
   if (event.target == popup) {
     popup.style.display = 'none';
   }
-
+}
 
 </script>
 
@@ -706,10 +741,10 @@ window.onclick = function(event) {
     <h1>WailAI</h1>
     <div class="card-container">
       <div class="card">
-        <div class="card-content">
-          <span class="material-symbols-rounded info">Warning</span>
+        <div class="card-content" id="typing-content">
+          <span class="material-symbols-rounded info">error</span>
           <p>لا يمكن تشغيل WailAI حاليا ,تأكد من تفعيل JavaScript لمتابعة</p>
-		  <button onclick="window.location.href='https://wailapp.github.io/wailai/index.html'" class="btn">مساعدة</button>
+          <button onclick="window.location.href='unhelp.html'" class="btn">Help</button>
         </div>
       </div>
     </div>
@@ -721,13 +756,15 @@ window.onclick = function(event) {
   <div class="typing-content">
     <div class="typing-textarea">
       <textarea id="chat-input" spellcheck="false" placeholder="تحدث مع WailAI" required></textarea>
-<span id="send-btn" class="material-symbols-rounded">send</span>
+      <span id="send-btn" class="material-symbols-rounded">send</span>
     </div>
     <div class="typing-controls">
       <span id="delete-btn" class="material-symbols-rounded">delete</span>
-<a href="2.0.html" id="exit-btn" class="material-symbols-rounded lightbulb">Cancel</a>
+      <a href="Home.html" id="idea-btn" class="material-symbols-rounded lightbulb">lightbulb</a>
+	        <a href="index.html" id="Language-btn" class="material-symbols-rounded Language">Language</a>
     </div>
   </div>
 </div>
 </body>
 </html>
+
