@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="WailAI">
+    <meta name="theme-color" content="#edeff2">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#edeff2">
+    <meta name="msapplication-TileColor" content="#edeff2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileImage" content="icon.png">
+    <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png" sizes="512x512">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WailAI - Welcome</title>
+    <meta name="description" content="Welcome to the world of AI with WailAI 2.0, capable of doing many things.">
+    <meta name="keywords" content="Artificial Intelligence, Machine Learning, Natural Language Processing, Data Analysis, Technology, Programming, Algorithms, Robotics, WailAI, WailTech">
+    <meta name="author" content="WailTech">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined">
+    <script src="../custom-scripts.js" defer></script>
+  </head>
+  <style>
+    @font-face {
+      font-family: 'Heavy';
+      src: url('./fonts/heavy.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Heavy', sans-serif;
+    }
+    main {
+      background: #ffffff;
+    }
+    .container {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+    }
+    .nav_logo {
+      padding: 10px 0;
+    }
+    .menu_items {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+    a {
+      color: #1cdc3e;
+      text-decoration: none;
+    }
+	.nav_link-1 {
+	color: Orange;
+	}
+		.nav_link-2 {
+	color: #0085dd;
+	}
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      background: url(images/bg-dot.png), url(images/bg-dot.png), url(images/bg-round.png), url(images/bg-tree.png);
+      background-position: 10px 10px, bottom 215px right 10px, left 55% top -1%, left 45% bottom -1px;
+      background-repeat: no-repeat;
+    }
+    .curveImg {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      pointer-events: none;
+    }
+    .hero .row {
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+      height: 100%;
+      width: 100%;
+      padding: 0 60px;
+      gap: 30px;
+      justify-content: space-between;
+    }
+    .hero .row h2,
+    .hero .row p {
+      color: black;
+    }
+    .hero .row h2 {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+    .hero .column {
+      width: 50%;
+    }
+    .buttons {
+      display: flex;
+      margin-top: 25px;
+      gap: 10px;
+    }
+    .btn {
+      padding: 14px 26px;
+      background: #0085dd;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn:last-child {
+      border: #1cdc3e;
+      background: transparent;
+      color: black;
+    }
+    .btn:last-child:hover {
+      background-color: #1cdc3e;
+      color: #ffffff;
+    }
+    .hero_img {
+      width: 100%;
+      z-index: 10;
+      position: relative;
+    }
+    #menu_toggle {
+      display: none;
+    }
+
+    @media (width < 860px) {
+      #menu_toggle {
+        display: block;
+      }
+      .nav {
+        padding: 0 20px;
+        background-color: #fff;
+      }
+
+      .menu_items {
+        position: fixed;
+        top: 0;
+        width: 260px;
+        background-color: #fff;
+        height: 100%;
+        left: -100%;
+        padding: 50px 30px 30px;
+        flex-direction: column;
+        transition: all 0.5s ease;
+      }
+      .showMenu .menu_items {
+        left: 0;
+      }
+      a {
+        color: #333;
+      }
+      #menu_toggle {
+        width: 20px;
+        cursor: pointer;
+      }
+      .menu_items #menu_toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      .hero {
+        padding-top: 130px;
+      }
+      .hero .row {
+        flex-direction: column;
+        padding: 0 20px;
+        justify-content: center;
+      }
+      .hero .row .column {
+        width: 100%;
+      }
+    }
+
+    @media (width < 600px) {
+      .hero {
+        padding-top: 80px;
+      }
+      .hero .row h2 {
+        font-size: 26px;
+      }
+      .buttons {
+        justify-content: center;
+      }
+      .btn {
+        padding: 10px 16px;
+      }
+    }
+
+    /* Styling for text and image */
+    .text-with-image {
+      display: flex;
+      align-items: center;
+      gap: 20px; /* Space between the image and text */
+    }
+    .text-with-image img {
+      width: 100px; /* Adjust image width as needed */
+      height: auto;
+    }
+    .text-with-image.reverse {
+      flex-direction: row-reverse;
+    }
+  </style>
+  <body>
+    <main>
+      <header>
+        <nav class="nav container">
+          <h2 class="nav_logo"><a href="#">WailAI</a></h2>
+
+          <ul class="menu_items">
+            <span alt="timesicon" id="menu_toggle" class="material-symbols-rounded">close</span>
+            <li><a href="https://wailapp.github.io/wailai/2.0.html" class="nav_link-1">WailAI 2.0</a></li>
+            <li><a href="https://wailapp.github.io/wailai/index.html'" class="nav_link-2">WailAI 3.0</a></li>
+          </ul>
+          <span alt="timesicon" id="menu_toggle" class="material-symbols-rounded">menu</span>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="row container">
+          <div class="column">
+            <h2>WailAI<br />The assistant that works best with WailJSCode.</h2>
+            <div class="text-with-image reverse">
+              <p>
+                "WailAI" is an interactive platform that leverages artificial intelligence to provide interactive services and advanced conversations. The site features a modern and simple design, making user interaction smooth across any device.
+              </p>
+              <img src="phone.png" alt="phone">
+            </div>
+            <div class="buttons">
+              <button onclick="window.location.href='https://wailapp.github.io/wailai/index.html'" class="btn">Start Now</button>
+              <button onclick="window.location.href='https://github.com/WailApp/wailai/tree/main'" class="btn">Github</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const header = document.querySelector("header");
+      const menuToggler = document.querySelectorAll("#menu_toggle");
+
+      menuToggler.forEach(toggler => {
+        toggler.addEventListener("click", () => header.classList.toggle("showMenu"));
+      });
+    </script>
+  </body>
+</html>
