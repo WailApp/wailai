@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Email Verification</h1>
+        <p>Please check your email for a verification link. Once verified, you can log in.</p>
+        
+        <!-- Buttons for checking verification status and resending verification link -->
+        <button id="check-verification">Check Email Verification</button>
+        <button id="resend-verification">Resend Verification Link</button>
+        <button id="sign-out">Sign Out</button>
+        
+        <div id="message"></div>
+        <div id="verification-error" class="error-message"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
+    <script src="verify-email.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#0D86FF">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#0D86FF">
+    <meta name="msapplication-TileColor" content="#0D86FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileImage" content="icon3.0.png">
+    <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon3.0.png">
+    <link rel="apple-touch-icon" href="icon3.0.png" sizes="512x512">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Account - WailAI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Manage Your Account</h1>
+        
+        <!-- Profile Update Form -->
+        <form id="update-profile-form">
+            <h2>Update Profile</h2>
+            <input type="text" id="display-name" placeholder="Full Name" required>
+            <input type="url" id="photo-url" placeholder="Profile Photo URL">
+            <button type="submit">Update Profile</button>
+        </form>
+        
+        <!-- Security Settings -->
+        <form id="update-security-form">
+            <h2>Security Settings</h2>
+            <button type="button" id="enable-security">Enable Account Protection</button>
+            <button type="button" id="manage-mfa">Manage Two-Step Verification</button>
+            <button type="button" id="delete-account">Delete Account</button>
+        </form>
+        
+        <div id="message"></div>
+        <div id="error-message" class="error-message"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore-compat.js"></script>
+    <script src="manage-account.js"></script>
+</body>
+</html>

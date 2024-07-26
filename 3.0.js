@@ -275,7 +275,7 @@ const loadDataFromLocalstorage = () => {
    let defaultText = `
         <div class="default-text">
             <h1>WailAI</h1>
-            <p class="p">مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 3.0 الذي يمكنه فعل أشياء عديدة.<br> سيتم عرض تاريخ محادثتك هنا.</p>
+            <p class="p">مرحبا بكم في عالم ذكاء الصناعي بواسطة WailAI 2.0 الذي يمكنه فعل أشياء عديدة.<br> سيتم عرض تاريخ محادثتك هنا.</p>
             <div class="card-container">
                 <div class="card">
                     <div class="card-content">
