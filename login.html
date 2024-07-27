@@ -3,33 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - WailAI</title>
+    <title>Sign in - WailAI</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-				<h1>Login in WailAI</h1>
         <div class="card">
+		<img src="icon3.0.png" alt="WailAI Logo" />
+            <h1>Sign in</h1>
             <form id="login-form">
-			<p>Please enter your email address and password to continue.</p>
+			<p>Use your WailAI Account.</p>
                 <input type="email" id="login-email" placeholder="Email Address" required>
                 <input type="password" id="login-password" placeholder="Password" required>
-                <button type="submit">Log In</button>
+                <button type="submit">Login</button>
                 <div id="login-error" class="error-message"></div>
             </form>
-		        <div class="links">
+            <div class="links">
+                <a href="signup.html">Don't have an account? Sign up</a>
                 <a href="reset-password.html">Forgot your password?</a>
-                <a href="signup.html">Create an account</a>
             </div>
         </div>
     </div>
-	       <div class="footer">
-            <p>&copy; 2024-2019 WailAI from WailTech. All rights reserved.</p>
-        </div>
-    </div>
+	            <div class="footer">
+                <p>&copy; 2024-2019 WailAI from WailTech. All rights reserved.</p>
+            </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
 
-    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
-    <script src="login.js"></script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzg4PmFoXnS95TXk8FlG9C4bSxhfer86E",
+            authDomain: "wailai-a.firebaseapp.com",
+            projectId: "wailai-a",
+            storageBucket: "wailai-a.appspot.com",
+            messagingSenderId: "857204915249",
+            appId: "1:857204915249:web:0141c2e2e68ed96769e910",
+            measurementId: "G-VRR62LMMMK"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.getElementById('login-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                
+                // Example Firestore usage: Add a new document to a "devices" collection
+                await addDoc(collection(db, "devices"), {
+                    userId: user.uid,
+                    timestamp: new Date(),
+                    device: navigator.userAgent, // You can add more device info here
+                    location: "User's location" // Replace with real location data if available
+                });
+                console.log("Device info added to Firestore");
+
+                // Redirect user or show appropriate message
+                window.location.href = 'index.html';
+            } catch (error) {
+                document.getElementById('login-error').innerText = 'Error: ' + error.message;
+            }
+        });
+    </script>
 </body>
 </html>

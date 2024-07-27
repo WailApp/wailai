@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connected Devices - WailAI</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore-compat.js"></script>
+    <script type="module" src="connected-devices.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Connected Devices</h1>
+        <table id="devices-table">
+            <thead>
+                <tr>
+                    <th>Device Name</th>
+                    <th>Last Active</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Device rows will be populated here -->
+            </tbody>
+        </table>
+        <button id="logout-btn">Logout</button>
+    </div>
+</body>
+</html>

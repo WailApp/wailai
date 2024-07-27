@@ -1,4 +1,7 @@
-// Firebase configuration
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyAzg4PmFoXnS95TXk8FlG9C4bSxhfer86E",
     authDomain: "wailai-a.firebaseapp.com",
@@ -10,29 +13,36 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Get reference to auth service
-const auth = firebase.auth();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 document.getElementById('login-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
-    auth.signInWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            // Check if 2SV is enabled
+    signInWithEmailAndPassword(auth, email, password)
+        .then(async (userCredential) => {
             const user = userCredential.user;
-            if (user.multiFactor.enrolledFactors.length > 0) {
-                // Redirect to 2SV verification page
-                window.location.href = 'two-step-verification.html';
-            } else {
-                // Redirect to the main page or dashboard
-                window.location.href = 'index.html';
+            
+            // Example Firestore usage: Add a new document to a "devices" collection
+            try {
+                await addDoc(collection(db, "devices"), {
+                    userId: user.uid,
+                    timestamp: new Date(),
+                    device: navigator.userAgent, // You can add more device info here
+                    location: "User's location" // Replace with real location data if available
+                });
+                console.log("Device info added to Firestore");
+            } catch (e) {
+                console.error("Error adding document: ", e);
             }
+
+            // Redirect user or show appropriate message
+            window.location.href = 'index.html';
         })
-        .catch(error => {
+        .catch((error) => {
             document.getElementById('login-error').innerText = 'Error: ' + error.message;
         });
 });

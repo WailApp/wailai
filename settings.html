@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings - WailAI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
+    <script src="settings.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+		<img src="icon3.0.png" alt="WailAI Logo" />
+            <h1>Account Settings</h1>
+            <div id="account-info">
+                <p><strong>ID:</strong> <span id="user-id"></span></p>
+                <p><strong>Email:</strong> <span id="user-email"></span></p>
+                <p><strong>Password:</strong> <span id="user-password">********</span></p>
+            </div>
+            <button id="change-password-btn" style="background-color: #D0D3D4; color: black;">
+                <span class="material-icons">lock</span> Change Password
+            </button>
+            <button id="logout-btn" style="background-color: #D0D3D4 ; color: black;">
+                <span class="material-icons">exit_to_app</span> Logout
+            </button>
+            <button id="delete-account-btn" style="background-color: #e74c3c; color: white;">
+                <span class="material-icons" >delete</span> Delete Account
+            </button>
+            <div id="status-message" class="error-message"></div>
+        </div>
+    </div>
+		            <div class="footer">
+                <p>&copy; 2024-2019 WailAI from WailTech. All rights reserved.</p>
+            </div>
+</body>
+</html>
