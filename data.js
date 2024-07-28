@@ -62,8 +62,8 @@ auth.onAuthStateChanged(user => {
                 locationInfo: locationInfo
             };
 
-            // Update user data in Firestore
-            firestore.collection('users').doc(user.uid).update(userData)
+            // Create or update user data in Firestore
+            firestore.collection('users').doc(user.uid).set(userData, { merge: true })
                 .then(() => {
                     console.log('User data updated successfully');
                 })
