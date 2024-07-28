@@ -15,11 +15,14 @@
     <link rel="apple-touch-icon" href="icon3.0.png" sizes="512x512">
     <title>Create Account - WailAI</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="card">
-		<img src="icon3.0.png" alt="WailAI Logo" />
+            <img src="icon3.0.png" alt="WailAI Logo" />
             <h1>Create a WailAI Account</h1>
             <form id="signup-form">
                 <p>To create a WailAI account, please enter the following information.</p>
@@ -35,12 +38,75 @@
             </div>
         </div>
     </div>
-	            <div class="footer">
-                <p>&copy; 2024-2019 WailAI from WailTech. All rights reserved.</p>
-            </div>
+    <div class="footer">
+        <p>&copy; 2024-2019 WailAI from WailTech. All rights reserved.</p>
+    </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
-    <script src="signup.js"></script>
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzg4PmFoXnS95TXk8FlG9C4bSxhfer86E",
+            authDomain: "wailai-a.firebaseapp.com",
+            projectId: "wailai-a",
+            storageBucket: "wailai-a.appspot.com",
+            messagingSenderId: "857204915249",
+            appId: "1:857204915249:web:0141c2e2e68ed96769e910",
+            measurementId: "G-VRR62LMMMK"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Get reference to auth service
+        const auth = firebase.auth();
+        const firestore = firebase.firestore();
+
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                document.getElementById('login-error').innerText = 'Error: Passwords do not match.';
+                return;
+            }
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    const user = userCredential.user;
+                    // Save password to Firestore
+                    return firestore.collection('users').doc(user.uid).set({
+                        email: email,
+                        password: password
+                    });
+                })
+                .then(() => {
+                    // Password saved successfully, redirect to verification page
+                    window.location.href = 'welcome.html';
+                })
+                .catch(error => {
+                    // Handle errors
+                    let errorMessage;
+                    switch (error.code) {
+                        case 'auth/email-already-in-use':
+                            errorMessage = 'This email is already in use.';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = 'Invalid email address.';
+                            break;
+                        case 'auth/operation-not-allowed':
+                            errorMessage = 'Email/password accounts are not enabled.';
+                            break;
+                        case 'auth/weak-password':
+                            errorMessage = 'Password is too weak.';
+                            break;
+                        default:
+                            errorMessage = 'An error occurred. Please try again.';
+                    }
+                    document.getElementById('login-error').innerText = 'Error: ' + errorMessage;
+                });
+        });
+    </script>
 </body>
 </html>
