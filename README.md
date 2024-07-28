@@ -10,7 +10,7 @@
   <strong>المساعد أفضل الذي يعمل ب WailJSCode</strong>
 </p>
 
-# WailAI 2.0 Omega
+# WailAI  Account
 شروط إنشاء حساب:
 اسم المستخدم:
 
