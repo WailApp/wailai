@@ -37,8 +37,7 @@ body {
 
 .card {
   background: #FFFFFF;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  border-radius: 30px;
   padding: 20px;
   width: 100%;
 }
@@ -74,21 +73,21 @@ input[type="password"] {
 
 button {
   display: inline-flex;
-  align-items: center;
+  align-items: left;
   justify-content: center;
   padding: 12px 16px;
-  font-size: 16px; /* Adjust font size */
+  font-size: 14px; /* Adjust font size */
   font-weight: 500;
   line-height: 1.75;
-  border-radius: 15px; /* Slightly rounded corners */
+  border-radius: 30px; /* Slightly rounded corners */
   border: none;
   cursor: pointer;
   outline: none;
   transition: background-color 0.3s, box-shadow 0.3s;
   text-transform: uppercase; /* Optional: for uppercase text */
-  width: 100%; /* Full width for better layout */
+  width: 30%; /* Full width for better layout */
   margin: 10px 0;
-  background-color: #1A73E8; /* Google blue color */
+  background-color: #0068ff; /* Google blue color */
   color: white;
 }
 
@@ -127,6 +126,16 @@ button:focus {
   .container {
     padding: 10px;
   }
+  .footer {
+    display: none;
+}
+  .card{
+	    border-radius: 30px;
+	    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.0); /* Subtle shadow effect */
+        padding: 20px;
+        width: 100%;
+		margin: 0px;
+  }
 
   button.primary {
     width: 100%; /* Full width for small screens */
@@ -138,3 +147,4 @@ button:focus {
 			border-radius: 360px;
             width: 50px;
         }
+
