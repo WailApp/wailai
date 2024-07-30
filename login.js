@@ -1,7 +1,8 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
 
-// Your web app's Firebase configuration
+// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyAzg4PmFoXnS95TXk8FlG9C4bSxhfer86E",
     authDomain: "wailai-a.firebaseapp.com",
@@ -25,7 +26,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     signInWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
             const user = userCredential.user;
-            
+
             // Example Firestore usage: Add a new document to a "devices" collection
             try {
                 await addDoc(collection(db, "devices"), {
@@ -43,6 +44,22 @@ document.getElementById('login-form').addEventListener('submit', function(event)
             window.location.href = 'index.html';
         })
         .catch((error) => {
-            document.getElementById('login-error').innerText = 'Error: ' + error.message;
+            const errorElement = document.getElementById('login-error');
+
+            // Log the exact error code to diagnose the issue
+            console.log('Error Code:', error.code);
+            console.log('Error Message:', error.message);
+
+            if (error.code === 'auth/user-disabled') {
+                // Redirect to another page if the account is disabled
+                window.location.href = 'account-disabled.html';
+            } else if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                // Display error message for wrong email or password
+                errorElement.innerText = 'Error: Incorrect email or password.';
+            } else {
+                // Display other errors
+                errorElement.innerText = 'Error: ' + error.message;
+            }
+            errorElement.style.display = 'block';
         });
 });

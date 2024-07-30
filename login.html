@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign in - WailAI</title>
     <link rel="stylesheet" href="styles.css">
-			    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
-	<script src="a.js" defer></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script> <!-- Include EmailJS -->
+    <script src="a.js" defer></script>
 </head>
 <body>
     <div class="container">
         <div class="card">
-		<img src="icon3.0.png" alt="WailAI Logo" />
+            <img src="Account.png" alt="WailAI Logo" />
             <h1>Sign in</h1>
             <form id="login-form">
-			<p>Use your WailAI Account.</p>
+                <p>Use your WailAccount.</p>
                 <input type="email" id="login-email" placeholder="Email Address" required>
                 <input type="password" id="login-password" placeholder="Password" required>
                 <button type="submit">Login</button>
@@ -27,13 +28,18 @@
             </div>
         </div>
     </div>
-	            <div class="footer">
-                <p>&copy; 2024-2019 WailAI from WailTech. All rights reserved.</p>
-            </div>
+    <div class="footer">
+        <p>&copy; 2024-2019 WailAccount from WailTech. All rights reserved.</p>
+    </div>
     <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
+
+// Initialize EmailJS with your user ID
+(function() {
+    emailjs.init("WFmXZvaY4N_BBgaSW"); // Replace with your EmailJS user ID
+})();
 
 // Firebase configuration
 const firebaseConfig = {
@@ -65,20 +71,30 @@ document.getElementById('login-form').addEventListener('submit', function(event)
                 await addDoc(collection(db, "devices"), {
                     userId: user.uid,
                     timestamp: new Date(),
-                    device: navigator.userAgent, // You can add more device info here
-                    location: "User's location" // Replace with real location data if available
+                    device: navigator.userAgent,
+                    location: "User's location" // Adjust location if needed
                 });
                 console.log("Device info added to Firestore");
             } catch (e) {
                 console.error("Error adding document: ", e);
             }
 
+            // Send email notification using EmailJS
+            emailjs.send('wailai', 'template_7mribk3', {
+                to_email: email,
+                message: 'You have successfully logged in to WailAI!'
+            }).then((response) => {
+                console.log('Email sent successfully', response);
+            }).catch((error) => {
+                console.error('Failed to send email', error);
+            });
+
             // Redirect user or show appropriate message
             window.location.href = 'index.html';
         })
         .catch((error) => {
             const errorElement = document.getElementById('login-error');
-
+            
             // Log the exact error code to diagnose the issue
             console.log('Error Code:', error.code);
             console.log('Error Message:', error.message);
@@ -91,11 +107,13 @@ document.getElementById('login-form').addEventListener('submit', function(event)
                 errorElement.innerText = 'Incorrect email or password.';
             } else {
                 // Display other errors
-                errorElement.innerText = 'Incorrect email or password.';
+                errorElement.innerText = 'An error occurred. Please try again.';
             }
             errorElement.style.display = 'block';
         });
 });
+
+
     </script>
 </body>
 </html>

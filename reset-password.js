@@ -1,3 +1,7 @@
+// استيراد الوحدات المطلوبة من Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+
 // إعدادات Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyAzg4PmFoXnS95TXk8FlG9C4bSxhfer86E",
@@ -10,20 +14,20 @@ const firebaseConfig = {
 };
 
 // تهيئة Firebase
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 // الحصول على مرجع لخدمة المصادقة
-const auth = firebase.auth();
+const auth = getAuth(app);
 
 // التعامل مع إعادة تعيين كلمة المرور
 document.getElementById('reset-password-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const email = document.getElementById('reset-email').value;
 
-    auth.sendPasswordResetEmail(email)
+    sendPasswordResetEmail(auth, email)
         .then(() => {
             // رسالة إعادة تعيين كلمة المرور أُرسلت بنجاح، الانتقال إلى صفحة أخرى
-            window.location.href = 'https://wailapp.github.io/wailai/index.html'; // استبدل بـ URL الصفحة التي تريد الانتقال إليها
+            document.getElementById('message').innerText = 'Done'; // استبدل بـ URL الصفحة التي تريد الانتقال إليها
         })
         .catch(error => {
             // معالجة الأخطاء وعرض رسالة الخطأ

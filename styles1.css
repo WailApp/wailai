@@ -73,20 +73,20 @@ input[type="password"] {
 
 button {
   display: inline-flex;
-  align-items: right;
-  justify-content: center;
-  padding: 09px 16px;
-  font-size: 16px; /* Adjust font size */
+  align-items: left;
+  justify-content: left;
+  padding: 12px 16px;
+  font-size: 14px; /* Adjust font size */
   font-weight: 500;
   line-height: 1.75;
-  border-radius: 30px; /* Slightly rounded corners */
+  border-radius: 10px; /* Slightly rounded corners */
   border: none;
   cursor: pointer;
   outline: none;
   transition: background-color 0.3s, box-shadow 0.3s;
-  width: auto; /* Full width for better layout */
-  margin: 10px 0;
-  background-color: #387cff; /* Google blue color */
+  width: 100%; /* Full width for better layout */
+  margin: 5px 0;
+  background-color: #0068ff; /* Google blue color */
   color: white;
 }
 
